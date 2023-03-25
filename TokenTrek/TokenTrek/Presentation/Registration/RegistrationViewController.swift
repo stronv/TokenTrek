@@ -6,127 +6,145 @@
 //
 
 import UIKit
+import SnapKit
 
 class RegistrationViewController: UIViewController {
     
-    private let emailLabel = UILabel()
-    private let passwordLabel = UILabel()
+    //MARK: - UI
+    private let emailLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Адрес электронной почты"
+        label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
+        label.textAlignment = .left
+        return label
+    }()
     
-    private let emailTextField = UITextField()
-    private let passwordTextField = UITextField()
+    private let passwordLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Пароль"
+        label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
+        label.textAlignment = .left
+        return label
+    }()
     
-    private let createAccountButton = UIButton()
+    private let emailTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Введите ваш адрес эл.почты"
+        textField.backgroundColor = .white
+        textField.layer.cornerRadius = 25
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.height))
+        textField.leftViewMode = .always
+        textField.layer.borderWidth = 1
+        return textField
+    }()
     
+    private let passwordTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Введите ваш пароль"
+        textField.isSecureTextEntry = true
+        textField.backgroundColor = .white
+        textField.layer.cornerRadius = 25
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.height))
+        textField.leftViewMode = .always
+        textField.layer.borderWidth = 1
+        return textField
+    }()
+    
+    private let createAccountButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 25
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor.blueButton
+        button.setTitle("Создать аккаунт", for: .normal)
+        return button
+    }()
+    
+    private let alredyRegisterLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Уже есть аккаунт?"
+        label.font = UIFont(name: Fonts.ubuntuRegular, size: 18)
+        label.textColor = UIColor.gray
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let signInButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Войти", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
+    
+    private let formStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.spacing = 10
+        return stackView
+    }()
+    
+    private let bottomStackView: UIStackView = {
+        let stackview = UIStackView()
+        stackview.axis = .vertical
+        stackview.alignment = .center
+        stackview.spacing = 30
+        return stackview
+    }()
+    
+    private let secondaryStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.spacing = 5
+        return stackView
+    }()
+    
+    //MARK: - Lifecycle
     override func viewDidLoad() {
-        
-        view.backgroundColor = .white
         super.viewDidLoad()
-        set()
-        setOnView()
+        view.backgroundColor = .white
+        addSubviews()
+        setConstraints()
     }
     
-    private func set() {
-        emailLabel.text = "Адрес электронной почты"
-        passwordLabel.text = "Пароль"
-        emailTextField.placeholder = "Введите ваш адрес эл.почты"
-        passwordTextField.placeholder = "Введите ваш пароль"
-        
-        createAccountButton.setTitle("Создать аккаунт", for: .normal)
-    }
-    
-    private func setOnView() {
-        emailLabel.font = .systemFont(ofSize: 14)
-        emailLabel.textAlignment = .left
-        
-        passwordLabel.font = .systemFont(ofSize: 14)
-        passwordLabel.textAlignment = .left
-        
-        emailTextField.backgroundColor = .white
-        emailTextField.layer.cornerRadius = 25
-        emailTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: emailTextField.frame.height))
-        emailTextField.leftViewMode = .always
-        emailTextField.layer.borderWidth = 1
-        
-        passwordTextField.backgroundColor = .white
-        passwordTextField.layer.cornerRadius = 25
-        passwordTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: emailTextField.frame.height))
-        passwordTextField.leftViewMode = .always
-        passwordTextField.layer.borderWidth = 1
-        
-        createAccountButton.layer.cornerRadius = 25
-        createAccountButton.setTitleColor(.white, for: .normal)
-        createAccountButton.backgroundColor = UIColor(cgColor: CGColor(
-            red: 29/255,
-            green: 26/255,
-            blue: 157/255,
-            alpha: 1)
-        )
-        
-        
-        // MARK: Checking view's
-//
-//        passwordLabel.layer.borderWidth = 1
-//        emailLabel.layer.borderWidth = 1
-        
-        let formStackView = UIStackView(arrangedSubviews: [
-            emailLabel, emailTextField,
-            passwordLabel, passwordTextField
-        ])
-        
-        formStackView.axis = .vertical
-        formStackView.alignment = .leading
-//        formStackView.backgroundColor = .systemMint
-        formStackView.spacing = 10
-        
+    //MARK: - Private Functions
+    private func addSubviews() {
+        formStackView.addArrangedSubview(emailLabel)
+        formStackView.addArrangedSubview(emailTextField)
+        formStackView.addArrangedSubview(passwordLabel)
+        formStackView.addArrangedSubview(passwordTextField)
+        secondaryStackView.addArrangedSubview(alredyRegisterLabel)
+        secondaryStackView.addArrangedSubview(signInButton)
+        bottomStackView.addArrangedSubview(createAccountButton)
+        bottomStackView.addArrangedSubview(secondaryStackView)
+        view.addSubview(bottomStackView)
         view.addSubview(formStackView)
+    }
+    
+    private func setConstraints() {
+        formStackView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(110)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
+        }
         
-        formStackView.translatesAutoresizingMaskIntoConstraints = false
+        emailTextField.snp.makeConstraints { make in
+            make.height.equalTo(50)
+        }
         
-        NSLayoutConstraint.activate([
-            formStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            formStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -500),
-            formStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            formStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-        ])
+        passwordTextField.snp.makeConstraints { make in
+            make.height.equalTo(50)
+        }
         
-        emailLabel.translatesAutoresizingMaskIntoConstraints = false
-        emailTextField.translatesAutoresizingMaskIntoConstraints = false
+        createAccountButton.snp.makeConstraints { make in
+            make.height.equalTo(50)
+            make.width.equalTo(350)
+        }
         
-        NSLayoutConstraint.activate([
-            emailLabel.topAnchor.constraint(equalTo: formStackView.topAnchor, constant: 80),
-            emailLabel.bottomAnchor.constraint(equalTo: formStackView.bottomAnchor, constant: -155),
-            emailLabel.leadingAnchor.constraint(equalTo: formStackView.leadingAnchor, constant: 20),
-            emailLabel.trailingAnchor.constraint(equalTo: formStackView.trailingAnchor),
-            
-            emailTextField.topAnchor.constraint(equalTo: formStackView.topAnchor, constant: 115),
-            emailTextField.bottomAnchor.constraint(equalTo: formStackView.bottomAnchor, constant: -100),
-            emailTextField.leadingAnchor.constraint(equalTo: formStackView.leadingAnchor),
-            emailTextField.trailingAnchor.constraint(equalTo: formStackView.trailingAnchor)
-        ])
-
-        passwordLabel.translatesAutoresizingMaskIntoConstraints = false
-        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            passwordLabel.topAnchor.constraint(equalTo: formStackView.topAnchor, constant: 180),
-            passwordLabel.bottomAnchor.constraint(equalTo: formStackView.bottomAnchor, constant: -60),
-            passwordLabel.leadingAnchor.constraint(equalTo: formStackView.leadingAnchor, constant: 20),
-            passwordLabel.trailingAnchor.constraint(equalTo: formStackView.trailingAnchor),
-            
-            passwordTextField.leadingAnchor.constraint(equalTo: formStackView.leadingAnchor),
-            passwordTextField.trailingAnchor.constraint(equalTo: formStackView.trailingAnchor),
-        ])
-        
-        view.addSubview(createAccountButton)
-        
-        createAccountButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            createAccountButton.topAnchor.constraint(equalTo: formStackView.bottomAnchor, constant: 280),
-            createAccountButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
-            createAccountButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            createAccountButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-        ])
-        
+        bottomStackView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(228)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
+        }
     }
 }
