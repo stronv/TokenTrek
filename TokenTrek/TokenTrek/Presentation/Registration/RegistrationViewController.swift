@@ -74,15 +74,7 @@ class RegistrationViewController: UIViewController {
         button.setTitleColor(.black, for: .normal)
         return button
     }()
-    
-    private let formStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.spacing = 10
-        return stackView
-    }()
-    
+        
     private let bottomStackView: UIStackView = {
         let stackview = UIStackView()
         stackview.axis = .vertical
@@ -109,36 +101,48 @@ class RegistrationViewController: UIViewController {
     
     //MARK: - Private Functions
     private func addSubviews() {
-        formStackView.addArrangedSubview(emailLabel)
-        formStackView.addArrangedSubview(emailTextField)
-        formStackView.addArrangedSubview(passwordLabel)
-        formStackView.addArrangedSubview(passwordTextField)
         secondaryStackView.addArrangedSubview(alredyRegisterLabel)
         secondaryStackView.addArrangedSubview(signInButton)
         bottomStackView.addArrangedSubview(createAccountButton)
         bottomStackView.addArrangedSubview(secondaryStackView)
+        view.addSubview(emailLabel)
+        view.addSubview(emailTextField)
+        view.addSubview(passwordLabel)
+        view.addSubview(passwordTextField)
         view.addSubview(bottomStackView)
-        view.addSubview(formStackView)
     }
     
     private func setConstraints() {
-        formStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(110)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
+        emailLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(100)
+            make.leading.equalToSuperview().inset(38)
+            make.trailing.equalToSuperview().inset(38)
         }
         
         emailTextField.snp.makeConstraints { make in
-            make.height.equalTo(50)
+            make.top.equalTo(emailLabel.snp.top).offset(25)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(48)
+        }
+        
+        passwordLabel.snp.makeConstraints { make in
+            make.top.equalTo(emailTextField.snp.bottom).offset(30)
+            make.leading.equalToSuperview().inset(38)
+            make.trailing.equalToSuperview().inset(38)
         }
         
         passwordTextField.snp.makeConstraints { make in
-            make.height.equalTo(50)
+            make.top.equalTo(passwordLabel.snp.bottom).offset(10)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(48)
         }
         
         createAccountButton.snp.makeConstraints { make in
             make.height.equalTo(50)
-            make.width.equalTo(350)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
         
         bottomStackView.snp.makeConstraints { make in

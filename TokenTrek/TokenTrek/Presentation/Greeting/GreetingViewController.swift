@@ -17,7 +17,6 @@ class GreetingViewController: UIViewController {
         return imageView
     }()
     
-    
     private let greetingLabel: UILabel = {
         let label = UILabel()
         label.text = "Добро пожаловать!"
@@ -123,20 +122,26 @@ class GreetingViewController: UIViewController {
             make.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(45)
         }
+        secondaryStackView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
         
         createAccountButton.snp.makeConstraints { make in
             make.height.equalTo(50)
-            make.width.equalTo(240)
+            make.leading.equalToSuperview()
+            make.trailing.equalTo(signInButton.snp.trailing).inset(110)
         }
         
         signInButton.snp.makeConstraints { make in
             make.height.equalTo(50)
-            make.width.equalTo(100)
+            make.trailing.equalToSuperview()
         }
         
         toMainScreenButton.snp.makeConstraints { make in
             make.height.equalTo(50)
-            make.width.equalTo(150)
+            make.leading.equalToSuperview().inset(80)
+            make.trailing.equalToSuperview().inset(80)
         }
     }
 }
