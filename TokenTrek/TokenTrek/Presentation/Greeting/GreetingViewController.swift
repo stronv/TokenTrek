@@ -8,8 +8,12 @@
 import UIKit
 import SnapKit
 
-class GreetingViewController: UIViewController {
-    
+protocol GreetingViewProtocol: AnyObject {
+    func createAccountButtonAction()
+    func toCurrencyListButtonAction()
+}
+
+class GreetingViewController: UIViewController, GreetingViewProtocol {
     //MARK: - UI
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -42,6 +46,7 @@ class GreetingViewController: UIViewController {
         button.layer.cornerRadius = 25
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor.blueButton
+        button.addTarget(self, action: #selector(createAccountButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -62,6 +67,7 @@ class GreetingViewController: UIViewController {
         button.layer.cornerRadius = 25
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.borderForWhiteButton
+        button.addTarget(self, action: #selector(toCurrencyListButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -89,12 +95,24 @@ class GreetingViewController: UIViewController {
         return stackView
     }()
     
+    //MARK: - MVP Properties
+    var output: GreetingPresenter?
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         addSubviews()
         setConstraints()
+    }
+    
+    //MARK: - Objc Methods
+    @objc func createAccountButtonAction() {
+        output?.toCreateAccount()
+    }
+    
+    @objc func toCurrencyListButtonAction() {
+        output?.toCurrencyList()
     }
     
     //MARK: - Private Functions
@@ -122,6 +140,7 @@ class GreetingViewController: UIViewController {
             make.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(45)
         }
+        
         secondaryStackView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
@@ -145,3 +164,4 @@ class GreetingViewController: UIViewController {
         }
     }
 }
+

@@ -16,8 +16,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: scene)
         self.window = window
-        window.rootViewController = GreetingViewController()
+        let coordinator = AppCoordinator()
+        coordinator.window = window
+        coordinator.goToGreetingPage()
         window.makeKeyAndVisible()
+        
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

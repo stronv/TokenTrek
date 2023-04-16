@@ -8,7 +8,11 @@
 import UIKit
 import SnapKit
 
-class RegistrationViewController: UIViewController {
+protocol RegistrationViewProtocol: AnyObject {
+    
+}
+
+class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     
     //MARK: - UI
     private let emailLabel: UILabel = {

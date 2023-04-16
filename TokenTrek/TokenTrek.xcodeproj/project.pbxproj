@@ -7,7 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9457E4E9A6D9BD8F9603544D /* Pods_TokenTrek.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF9079C3247A5C194AC45CD9 /* Pods_TokenTrek.framework */; };
+		630E16D629DACB6700516D05 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630E16D529DACB6700516D05 /* Coordinator.swift */; };
+		630E16D829DACC4100516D05 /* GreetingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630E16D729DACC4100516D05 /* GreetingCoordinator.swift */; };
+		630E16DA29DACC4900516D05 /* GreetingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630E16D929DACC4900516D05 /* GreetingPresenter.swift */; };
+		630E16DC29DACDD300516D05 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630E16DB29DACDD300516D05 /* AppCoordinator.swift */; };
+		6384C68D29E06AB200256A1C /* CurrencyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6384C68C29E06AB200256A1C /* CurrencyListViewController.swift */; };
+		6390D3D629E35FB700239555 /* CurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6390D3D529E35FB700239555 /* CurrencyTableViewCell.swift */; };
+		6390D3D929E35FD600239555 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6390D3D829E35FD600239555 /* Currency.swift */; };
+		639998D429E841C500819493 /* CurrencyListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639998D329E841C500819493 /* CurrencyListCoordinator.swift */; };
+		639998D629E841CF00819493 /* CurrencyListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639998D529E841CF00819493 /* CurrencyListPresenter.swift */; };
+		7498B2D4B74C3BF76B43E12E /* Pods_TokenTrek.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0265C2B4D2F94E7A0A1B085 /* Pods_TokenTrek.framework */; };
 		9A191BEE29C66A5700E88891 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A191BED29C66A5700E88891 /* AppDelegate.swift */; };
 		9A191BF029C66A5700E88891 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A191BEF29C66A5700E88891 /* SceneDelegate.swift */; };
 		9A191BF829C66A5700E88891 /* TokenTrek.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9A191BF629C66A5700E88891 /* TokenTrek.xcdatamodeld */; };
@@ -22,8 +31,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		01CB3F9FE7A0FC1952D571CC /* Pods-TokenTrek.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenTrek.debug.xcconfig"; path = "Target Support Files/Pods-TokenTrek/Pods-TokenTrek.debug.xcconfig"; sourceTree = "<group>"; };
-		33330BA4F726C87FF7AD4D63 /* Pods-TokenTrek.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenTrek.release.xcconfig"; path = "Target Support Files/Pods-TokenTrek/Pods-TokenTrek.release.xcconfig"; sourceTree = "<group>"; };
+		630E16D529DACB6700516D05 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		630E16D729DACC4100516D05 /* GreetingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingCoordinator.swift; sourceTree = "<group>"; };
+		630E16D929DACC4900516D05 /* GreetingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingPresenter.swift; sourceTree = "<group>"; };
+		630E16DB29DACDD300516D05 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		6384C68C29E06AB200256A1C /* CurrencyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListViewController.swift; sourceTree = "<group>"; };
+		6390D3D529E35FB700239555 /* CurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTableViewCell.swift; sourceTree = "<group>"; };
+		6390D3D829E35FD600239555 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		639998D329E841C500819493 /* CurrencyListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListCoordinator.swift; sourceTree = "<group>"; };
+		639998D529E841CF00819493 /* CurrencyListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListPresenter.swift; sourceTree = "<group>"; };
+		8D34D8C47A1B9CE1AC49DA69 /* Pods-TokenTrek.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenTrek.release.xcconfig"; path = "Target Support Files/Pods-TokenTrek/Pods-TokenTrek.release.xcconfig"; sourceTree = "<group>"; };
 		9A191BEA29C66A5700E88891 /* TokenTrek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TokenTrek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A191BED29C66A5700E88891 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A191BEF29C66A5700E88891 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,7 +54,8 @@
 		9A3E7E3E29CCFB27004B60E8 /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-Regular.ttf"; sourceTree = "<group>"; };
 		9A3E7E4029CCFC1A004B60E8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		9A3E7E4229CCFCB9004B60E8 /* Ubuntu-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-Bold.ttf"; sourceTree = "<group>"; };
-		BF9079C3247A5C194AC45CD9 /* Pods_TokenTrek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TokenTrek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0265C2B4D2F94E7A0A1B085 /* Pods_TokenTrek.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TokenTrek.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED2AE1782135A0DE265A705C /* Pods-TokenTrek.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenTrek.debug.xcconfig"; path = "Target Support Files/Pods-TokenTrek/Pods-TokenTrek.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,26 +63,53 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9457E4E9A6D9BD8F9603544D /* Pods_TokenTrek.framework in Frameworks */,
+				7498B2D4B74C3BF76B43E12E /* Pods_TokenTrek.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		708C913CEEE7478C1A037667 /* Frameworks */ = {
+		01E0BF10A8EE97C27C9A171A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BF9079C3247A5C194AC45CD9 /* Pods_TokenTrek.framework */,
+				A0265C2B4D2F94E7A0A1B085 /* Pods_TokenTrek.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6384C68B29E069F000256A1C /* CurrencyList */ = {
+			isa = PBXGroup;
+			children = (
+				639998DB29E8420700819493 /* View */,
+				639998D329E841C500819493 /* CurrencyListCoordinator.swift */,
+				639998D529E841CF00819493 /* CurrencyListPresenter.swift */,
+			);
+			path = CurrencyList;
+			sourceTree = "<group>";
+		};
+		6390D3D729E35FCB00239555 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6390D3D829E35FD600239555 /* Currency.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		639998DB29E8420700819493 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6390D3D529E35FB700239555 /* CurrencyTableViewCell.swift */,
+				6384C68C29E06AB200256A1C /* CurrencyListViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		751143C4809A32AF64F707BC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				01CB3F9FE7A0FC1952D571CC /* Pods-TokenTrek.debug.xcconfig */,
-				33330BA4F726C87FF7AD4D63 /* Pods-TokenTrek.release.xcconfig */,
+				ED2AE1782135A0DE265A705C /* Pods-TokenTrek.debug.xcconfig */,
+				8D34D8C47A1B9CE1AC49DA69 /* Pods-TokenTrek.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -75,7 +120,7 @@
 				9A191BEC29C66A5700E88891 /* TokenTrek */,
 				9A191BEB29C66A5700E88891 /* Products */,
 				751143C4809A32AF64F707BC /* Pods */,
-				708C913CEEE7478C1A037667 /* Frameworks */,
+				01E0BF10A8EE97C27C9A171A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,6 +135,7 @@
 		9A191BEC29C66A5700E88891 /* TokenTrek */ = {
 			isa = PBXGroup;
 			children = (
+				6390D3D729E35FCB00239555 /* Model */,
 				9A3E7E3D29CCFABE004B60E8 /* Fonts */,
 				9A22683529CCA15000D96435 /* Resources */,
 				9A191C0429C66B6A00E88891 /* Presentation */,
@@ -99,6 +145,8 @@
 				9A191BFB29C66A5900E88891 /* LaunchScreen.storyboard */,
 				9A191BFE29C66A5900E88891 /* Info.plist */,
 				9A191BF629C66A5700E88891 /* TokenTrek.xcdatamodeld */,
+				630E16D529DACB6700516D05 /* Coordinator.swift */,
+				630E16DB29DACDD300516D05 /* AppCoordinator.swift */,
 			);
 			path = TokenTrek;
 			sourceTree = "<group>";
@@ -106,6 +154,7 @@
 		9A191C0429C66B6A00E88891 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				6384C68B29E069F000256A1C /* CurrencyList */,
 				9A2245FB29C885FE00055A11 /* Greeting */,
 				9A595F0A29C9100C009CFA38 /* Registration */,
 			);
@@ -116,6 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				9A191C0529C66BF400E88891 /* GreetingViewController.swift */,
+				630E16D729DACC4100516D05 /* GreetingCoordinator.swift */,
+				630E16D929DACC4900516D05 /* GreetingPresenter.swift */,
 			);
 			path = Greeting;
 			sourceTree = "<group>";
@@ -153,11 +204,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9A191C0129C66A5900E88891 /* Build configuration list for PBXNativeTarget "TokenTrek" */;
 			buildPhases = (
-				642151FED93C71C075B49EF3 /* [CP] Check Pods Manifest.lock */,
+				105EE06A9208BE737902380E /* [CP] Check Pods Manifest.lock */,
 				9A191BE629C66A5700E88891 /* Sources */,
 				9A191BE729C66A5700E88891 /* Frameworks */,
 				9A191BE829C66A5700E88891 /* Resources */,
-				D4646A981D6EE7CA4BF978EB /* [CP] Embed Pods Frameworks */,
+				B1602523132B489FC0608997 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -216,7 +267,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		642151FED93C71C075B49EF3 /* [CP] Check Pods Manifest.lock */ = {
+		105EE06A9208BE737902380E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -238,7 +289,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D4646A981D6EE7CA4BF978EB /* [CP] Embed Pods Frameworks */ = {
+		B1602523132B489FC0608997 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -262,12 +313,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				630E16DC29DACDD300516D05 /* AppCoordinator.swift in Sources */,
+				630E16D629DACB6700516D05 /* Coordinator.swift in Sources */,
+				639998D429E841C500819493 /* CurrencyListCoordinator.swift in Sources */,
+				630E16DA29DACC4900516D05 /* GreetingPresenter.swift in Sources */,
+				6384C68D29E06AB200256A1C /* CurrencyListViewController.swift in Sources */,
+				639998D629E841CF00819493 /* CurrencyListPresenter.swift in Sources */,
 				9A3E7E4129CCFC1A004B60E8 /* Fonts.swift in Sources */,
+				6390D3D629E35FB700239555 /* CurrencyTableViewCell.swift in Sources */,
 				9A2245FF29C886B300055A11 /* RegistrationViewController.swift in Sources */,
 				9A22683729CCA16E00D96435 /* UIColor.swift in Sources */,
 				9A191BF829C66A5700E88891 /* TokenTrek.xcdatamodeld in Sources */,
 				9A191BEE29C66A5700E88891 /* AppDelegate.swift in Sources */,
+				630E16D829DACC4100516D05 /* GreetingCoordinator.swift in Sources */,
 				9A191C0629C66BF400E88891 /* GreetingViewController.swift in Sources */,
+				6390D3D929E35FD600239555 /* Currency.swift in Sources */,
 				9A191BF029C66A5700E88891 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -402,7 +462,7 @@
 		};
 		9A191C0229C66A5900E88891 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 01CB3F9FE7A0FC1952D571CC /* Pods-TokenTrek.debug.xcconfig */;
+			baseConfigurationReference = ED2AE1782135A0DE265A705C /* Pods-TokenTrek.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -429,7 +489,7 @@
 		};
 		9A191C0329C66A5900E88891 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33330BA4F726C87FF7AD4D63 /* Pods-TokenTrek.release.xcconfig */;
+			baseConfigurationReference = 8D34D8C47A1B9CE1AC49DA69 /* Pods-TokenTrek.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
