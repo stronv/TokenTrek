@@ -8,7 +8,9 @@
 import UIKit
 import SnapKit
 
-protocol CurrencyListViewProtocol: AnyObject {}
+protocol CurrencyListViewProtocol: AnyObject {
+    func reloadData()
+}
 
 class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
     
@@ -16,11 +18,62 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(CurrencyTableViewCell.self, forCellReuseIdentifier: "CurrencyTableViewCell")
+        tableView.backgroundColor = .clear
+        tableView.separatorColor = UIColor.clear
         return tableView
     }()
     
+    private let refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return refreshControl
+    }()
+    
+    private let marketCapRankButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("#", for: .normal)
+        button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
+        button.backgroundColor = .clear
+        button.setTitleColor(UIColor.gray, for: .normal)
+        return button
+    }()
+    
+    private let marketCapButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("market cap", for: .normal)
+        button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
+        button.backgroundColor = .clear
+        button.setTitleColor(UIColor.gray, for: .normal)
+        return button
+    }()
+    
+    private let priceButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("price (USD)", for: .normal)
+        button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
+        button.backgroundColor = .clear
+        button.setTitleColor(UIColor.gray, for: .normal)
+        return button
+    }()
+    
+    private let priceChangePercentageButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("24h.%", for: .normal)
+        button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
+        button.backgroundColor = .clear
+        button.setTitleColor(UIColor.gray, for: .normal)
+        return button
+    }()
+    
+    private let filterButtonsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 20
+        return stackView
+    }()
+    
     //MARK: - MVP Properties
-    var output: CurrencyListPresenter?
+    var output: CurrencyListPresenter!
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -29,29 +82,51 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         addSubviews()
         setConstraints()
         
+        tableView.refreshControl = refreshControl
+        
+        output.getCoinData()
         tableView.dataSource = self
         tableView.delegate = self
+    }
+    
+    func reloadData() {
         tableView.reloadData()
     }
     
     //MARK: - Private Methods
     private func addSubviews() {
+        filterButtonsStackView.addArrangedSubview(marketCapRankButton)
+        filterButtonsStackView.addArrangedSubview(marketCapButton)
+        filterButtonsStackView.addArrangedSubview(priceButton)
+        filterButtonsStackView.addArrangedSubview(priceChangePercentageButton)
+        
+        view.addSubview(filterButtonsStackView)
         view.addSubview(tableView)
     }
     
     private func setConstraints() {
         view.backgroundColor = .white
-        tableView.backgroundColor = .clear
-        
-        tableView.snp.makeConstraints { make in
+        filterButtonsStackView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
+        }
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(marketCapRankButton.snp_bottomMargin).offset(12)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
+        marketCapRankButton.snp.makeConstraints { make in
+            make.width.equalTo(10)
+        }
     }
-    
-    private let currency: [Currency] = Currency.getCurrency()
+        
+    //MARK: - Objc Methods
+    @objc func refresh(_ sender: AnyObject) {
+        output.getCoinData()
+        sender.endRefreshing()
+    }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
@@ -61,7 +136,7 @@ extension CurrencyListViewController: UITableViewDataSource, UITableViewDelegate
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        currency.count
+        return output.dataSource.count
     }
     
     func tableView(
@@ -74,8 +149,16 @@ extension CurrencyListViewController: UITableViewDataSource, UITableViewDelegate
         else {
             fatalError("Couldn't register cell")
         }
-        let moneta = currency[indexPath.row]
-        cell.configure(currency: moneta)
+        
+        let moneta = output.dataSource[indexPath.row]
+        
+        cell.currencyLogoImage.downloaded(from: moneta.image)
+        cell.priceChangeLabel.text = moneta.priceChangePercentage24H?.asPercentString()
+        cell.nameLabel.text = moneta.symbol.uppercased()
+        cell.priceLabel.text = moneta.currentPrice.asCurrencyWith6Decimals()
+        cell.marketCapRankLabel.text = "\(moneta.marketCapRank)"
+        cell.marketCapLabel.text = moneta.marketCap?.convertToCurrency()
+        
         return cell
     }
     
@@ -85,5 +168,4 @@ extension CurrencyListViewController: UITableViewDataSource, UITableViewDelegate
     ) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
 }

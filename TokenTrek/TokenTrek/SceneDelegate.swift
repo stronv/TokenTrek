@@ -20,8 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         coordinator.window = window
         coordinator.goToGreetingPage()
         window.makeKeyAndVisible()
-        
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -25,7 +25,7 @@ class AppCoordinator {
         setRootViewController(coordinator.start(), duration: 0.3)
     }
     
-    //https://stackoverflow.com/questions/41144523/swap-rootviewcontroller-with-animation
+    // https://stackoverflow.com/questions/41144523/swap-rootviewcontroller-with-animation
     
     func setRootViewController(_ vc: UIViewController, duration: TimeInterval) {
         window.rootViewController = vc

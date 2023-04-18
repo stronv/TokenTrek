@@ -13,44 +13,51 @@ class CurrencyTableViewCell: UITableViewCell {
     static let identifier = "CurrencyTableViewCell"
     
     // MARK: - UI
-    private let idLabel: UILabel = {
+    let marketCapRankLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 15)
         label.textColor = .black
         return label
     }()
     
-    private let currencyLogoImage: UIImageView = {
+    let currencyLogoImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "bitcoin")
         return imageView
     }()
     
-    private let nameLabel: UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15)
         label.textColor = .black
         return label
     }()
     
-    private let priceLabel: UILabel = {
+    let priceLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
         label.textColor = .black
         return label
     }()
     
-    private let volumeLabel: UILabel = {
+    let marketCapLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 10)
         label.textColor = .systemGray
         return label
     }()
     
-    private let mockChart: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "mockChart")
-        return imageView
+    let priceChangeLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14)
+        return label
+    }()
+    
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.spacing = 12
+        return stackView
     }()
     
     private let tikerAndVolumeStackView = {
@@ -64,15 +71,15 @@ class CurrencyTableViewCell: UITableViewCell {
     private let priceAndChartStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 44
+        stackView.spacing = 30
         return stackView
     }()
     
-    private let stackView: UIStackView = {
+    private let marcketCapAndLogoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .center
-        stackView.spacing = 12
+        stackView.spacing = 15
         return stackView
     }()
     
@@ -90,25 +97,28 @@ class CurrencyTableViewCell: UITableViewCell {
         addSubviews()
         setConstraints()
      }
+    
     //MARK: - Private Methods
     func configure(currency: Currency) {
-        idLabel.text = "\(currency.id)"
+        marketCapRankLabel.text = "\(currency.id)"
         currencyLogoImage.image = currency.image
         nameLabel.text = currency.ticker
         priceLabel.text = "\(currency.priceUSD) $"
-        volumeLabel.text = "\(currency.volume) Bn"
+        marketCapLabel.text = "\(currency.volume) Bn"
     }
     
     private func addSubviews() {
-        stackView.addArrangedSubview(idLabel)
-        stackView.addArrangedSubview(currencyLogoImage)
+        
+        stackView.addArrangedSubview(marcketCapAndLogoStackView)
         stackView.addArrangedSubview(tikerAndVolumeStackView)
         stackView.addArrangedSubview(priceAndChartStackView)
         
+        marcketCapAndLogoStackView.addArrangedSubview(marketCapRankLabel)
+        marcketCapAndLogoStackView.addArrangedSubview(currencyLogoImage)
         priceAndChartStackView.addArrangedSubview(priceLabel)
-        priceAndChartStackView.addArrangedSubview(mockChart)
+        priceAndChartStackView.addArrangedSubview(priceChangeLabel)
         tikerAndVolumeStackView.addArrangedSubview(nameLabel)
-        tikerAndVolumeStackView.addArrangedSubview(volumeLabel)
+        tikerAndVolumeStackView.addArrangedSubview(marketCapLabel)
         
         contentView.addSubview(stackView)
     }
@@ -124,11 +134,5 @@ class CurrencyTableViewCell: UITableViewCell {
             make.width.equalTo(32)
             make.height.equalTo(32)
         }
-        
-        mockChart.snp.makeConstraints { make in
-            make.width.equalTo(73)
-            make.height.equalTo(32)
-        }
     }
-    
 }
