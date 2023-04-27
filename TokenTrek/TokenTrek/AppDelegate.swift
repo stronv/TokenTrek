@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  TokenTrek
 //
-//  Created by Artyom Mitrofanov on 19.03.2023.
+//  Created by Artyom Tabachenko on 19.03.2023.
 //
 
 import UIKit
@@ -10,8 +10,13 @@ import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    var window: UIWindow?
+    var appCoordinator: AppCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        appCoordinator = AppCoordinator()
+        appCoordinator?.goToGreetingPage()
         return true
     }
 

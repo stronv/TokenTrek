@@ -2,13 +2,17 @@
 //  RegistrationViewController.swift
 //  TokenTrek
 //
-//  Created by Artyom Mitrofanov on 20.03.2023.
+//  Created by Artyom Tabachenko on 20.03.2023.
 //
 
 import UIKit
 import SnapKit
 
-class RegistrationViewController: UIViewController {
+protocol RegistrationViewProtocol: AnyObject {
+    
+}
+
+class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     
     //MARK: - UI
     private let emailLabel: UILabel = {

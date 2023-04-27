@@ -3,6 +3,7 @@ use_frameworks!
 platform :ios, '13.0'
 
 target 'TokenTrek' do
-  pod 'SnapKit'	
+  pod 'SnapKit'
+  pod 'Charts'	
 
 end

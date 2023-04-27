@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  TokenTrek
 //
-//  Created by Artyom Mitrofanov on 19.03.2023.
+//  Created by Artyom Tabachenko on 19.03.2023.
 //
 
 import UIKit
@@ -16,7 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: scene)
         self.window = window
-        window.rootViewController = GreetingViewController()
+        let coordinator = AppCoordinator()
+        coordinator.window = window
+        coordinator.goToGreetingPage()
         window.makeKeyAndVisible()
     }
 
