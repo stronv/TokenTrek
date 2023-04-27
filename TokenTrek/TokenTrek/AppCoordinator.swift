@@ -2,7 +2,7 @@
 //  AppCoordinator.swift
 //  TokenTrek
 //
-//  Created by Artyom Mitrofanov on 03.04.2023.
+//  Created by Artyom Tabachenko on 03.04.2023.
 //
 
 import UIKit
@@ -24,8 +24,6 @@ class AppCoordinator {
         coordinator.appCoordinator = self
         setRootViewController(coordinator.start(), duration: 0.3)
     }
-    
-    // https://stackoverflow.com/questions/41144523/swap-rootviewcontroller-with-animation
     
     func setRootViewController(_ vc: UIViewController, duration: TimeInterval) {
         window.rootViewController = vc

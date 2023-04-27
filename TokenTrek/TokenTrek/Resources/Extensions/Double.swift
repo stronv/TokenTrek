@@ -2,7 +2,7 @@
 //  Double.swift
 //  TokenTrek
 //
-//  Created by Artyom Mitrofanov on 16.04.2023.
+//  Created by Artyom Tabachenko on 16.04.2023.
 //
 
 import Foundation

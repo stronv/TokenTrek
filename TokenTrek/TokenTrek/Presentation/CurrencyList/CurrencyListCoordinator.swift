@@ -2,13 +2,13 @@
 //  CurrencyListCoordinator.swift
 //  TokenTrek
 //
-//  Created by Artyom Mitrofanov on 13.04.2023.
+//  Created by Artyom Tabachenko on 13.04.2023.
 //
 
 import UIKit
 
 protocol CurrencyListCoordinatorProtocol: Coordinator {
-    func showDetailCurrency()
+    func goToCoinDetail(coin: Coin)
 }
 
 class CurrencyListCoordinator: CurrencyListCoordinatorProtocol {
@@ -26,7 +26,9 @@ class CurrencyListCoordinator: CurrencyListCoordinatorProtocol {
         return navigationController
     }
     
-    func showDetailCurrency() {
-        print("show detail")
+    func goToCoinDetail(coin: Coin) {
+        let controller = DetailViewController()
+        controller.coin = coin
+        navigationController.pushViewController(controller, animated: true)
     }
 }

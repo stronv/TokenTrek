@@ -2,7 +2,7 @@
 //  CurrencyTableViewCell.swift
 //  TokenTrek
 //
-//  Created by Artyom Mitrofanov on 10.04.2023.
+//  Created by Artyom Tabachenko on 10.04.2023.
 //
 
 import UIKit
@@ -11,11 +11,12 @@ import SnapKit
 class CurrencyTableViewCell: UITableViewCell {
     
     static let identifier = "CurrencyTableViewCell"
-    
     // MARK: - UI
+
     let marketCapRankLabel: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 15)
+        label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
+        label.textAlignment = .center
         label.textColor = .black
         return label
     }()
@@ -27,28 +28,31 @@ class CurrencyTableViewCell: UITableViewCell {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15)
+        label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         label.textColor = .black
         return label
     }()
     
     let priceLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
+        label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         label.textColor = .black
         return label
     }()
     
     let marketCapLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 10)
+        label.font = UIFont(name: Fonts.ubuntuRegular, size: 10)
         label.textColor = .systemGray
         return label
     }()
     
     let priceChangeLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
+        label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
+        label.layer.cornerRadius = 17
+        label.layer.masksToBounds = true
+        label.textAlignment = .center
         return label
     }()
     
@@ -71,7 +75,7 @@ class CurrencyTableViewCell: UITableViewCell {
     private let priceAndChartStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 30
+        stackView.spacing = 22
         return stackView
     }()
     
@@ -99,12 +103,21 @@ class CurrencyTableViewCell: UITableViewCell {
      }
     
     //MARK: - Private Methods
-    func configure(currency: Currency) {
-        marketCapRankLabel.text = "\(currency.id)"
-        currencyLogoImage.image = currency.image
-        nameLabel.text = currency.ticker
-        priceLabel.text = "\(currency.priceUSD) $"
-        marketCapLabel.text = "\(currency.volume) Bn"
+    func configure(coin: Coin) {
+        marketCapRankLabel.text = "\(coin.marketCapRank)"
+        currencyLogoImage.downloaded(from: coin.image)
+        nameLabel.text = coin.symbol.uppercased()
+        priceLabel.text = coin.currentPrice.asCurrencyWith6Decimals()
+        marketCapLabel.text = coin.marketCap?.convertToCurrency()
+        priceChangeLabel.text = coin.priceChangePercentage24H?.asPercentString()
+        //TODO: Move it somewhere?
+        if coin.priceChangePercentage24H ?? 0 >= 0 {
+            priceChangeLabel.backgroundColor = UIColor.greenBackground
+            priceChangeLabel.textColor = UIColor.green
+        } else {
+            priceChangeLabel.backgroundColor = UIColor.redBackground
+            priceChangeLabel.textColor = UIColor.red
+        }
     }
     
     private func addSubviews() {
@@ -133,6 +146,14 @@ class CurrencyTableViewCell: UITableViewCell {
         currencyLogoImage.snp.makeConstraints { make in
             make.width.equalTo(32)
             make.height.equalTo(32)
+        }
+        priceChangeLabel.snp.makeConstraints { make in
+            make.width.equalTo(73)
+            make.height.equalTo(32)
+        }
+        marketCapRankLabel.snp.makeConstraints { make in
+            make.width.equalTo(27
+            )
         }
     }
 }

@@ -2,14 +2,10 @@
 //  UIImageView.swift
 //  TokenTrek
 //
-//  Created by Artyom Mitrofanov on 16.04.2023.
+//  Created by Artyom Tabachenko on 16.04.2023.
 //
 
 import UIKit
-
-/*
- https://stackoverflow.com/questions/24231680/loading-downloading-image-from-url-on-swift
- */
 
 extension UIImageView {
     func downloaded(from url: URL, contentMode mode: ContentMode = .scaleAspectFit) {

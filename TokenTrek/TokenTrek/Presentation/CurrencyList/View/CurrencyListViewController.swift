@@ -2,7 +2,7 @@
 //  CurrencyListViewController.swift
 //  TokenTrek
 //
-//  Created by Artyom Mitrofanov on 07.04.2023.
+//  Created by Artyom Tabachenko on 07.04.2023.
 //
 
 import UIKit
@@ -13,7 +13,6 @@ protocol CurrencyListViewProtocol: AnyObject {
 }
 
 class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
-    
     // MARK: - UI
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -35,6 +34,8 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         button.backgroundColor = .clear
         button.setTitleColor(UIColor.gray, for: .normal)
+        button.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
+        button.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .horizontal)
         return button
     }()
     
@@ -44,6 +45,8 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         button.backgroundColor = .clear
         button.setTitleColor(UIColor.gray, for: .normal)
+        button.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
+        button.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .horizontal)
         return button
     }()
     
@@ -53,6 +56,8 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         button.backgroundColor = .clear
         button.setTitleColor(UIColor.gray, for: .normal)
+        button.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .horizontal)
+        button.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh, for: .horizontal)
         return button
     }()
     
@@ -117,9 +122,6 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
-        marketCapRankButton.snp.makeConstraints { make in
-            make.width.equalTo(10)
-        }
     }
         
     //MARK: - Objc Methods
@@ -151,14 +153,7 @@ extension CurrencyListViewController: UITableViewDataSource, UITableViewDelegate
         }
         
         let moneta = output.dataSource[indexPath.row]
-        
-        cell.currencyLogoImage.downloaded(from: moneta.image)
-        cell.priceChangeLabel.text = moneta.priceChangePercentage24H?.asPercentString()
-        cell.nameLabel.text = moneta.symbol.uppercased()
-        cell.priceLabel.text = moneta.currentPrice.asCurrencyWith6Decimals()
-        cell.marketCapRankLabel.text = "\(moneta.marketCapRank)"
-        cell.marketCapLabel.text = moneta.marketCap?.convertToCurrency()
-        
+        cell.configure(coin: moneta)
         return cell
     }
     
@@ -167,5 +162,7 @@ extension CurrencyListViewController: UITableViewDataSource, UITableViewDelegate
         didSelectRowAt indexPath: IndexPath
     ) {
         tableView.deselectRow(at: indexPath, animated: true)
+        output.showCoinDetail(indexPath: indexPath)
     }
 }
+ 

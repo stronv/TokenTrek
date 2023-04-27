@@ -2,7 +2,7 @@
 //  GreetingCoordinator.swift
 //  TokenTrek
 //
-//  Created by Artyom Mitrofanov on 03.04.2023.
+//  Created by Artyom Tabachenko on 03.04.2023.
 //
 
 import UIKit

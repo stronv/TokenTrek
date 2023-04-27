@@ -2,7 +2,7 @@
 //  RegistrationViewController.swift
 //  TokenTrek
 //
-//  Created by Artyom Mitrofanov on 20.03.2023.
+//  Created by Artyom Tabachenko on 20.03.2023.
 //
 
 import UIKit

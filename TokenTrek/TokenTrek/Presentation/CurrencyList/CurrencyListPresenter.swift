@@ -2,7 +2,7 @@
 //  CurrencyListPresenter.swift
 //  TokenTrek
 //
-//  Created by Artyom Mitrofanov on 13.04.2023.
+//  Created by Artyom Tabachenko on 13.04.2023.
 //
 
 import Foundation
@@ -35,5 +35,9 @@ class CurrencyListPresenter: CurrencyListPresenterProtocol {
                 print("Error: \(error.localizedDescription)")
             }
         }
+    }
+    
+    func showCoinDetail(indexPath: IndexPath) {
+        moduleOutput.goToCoinDetail(coin: dataSource[indexPath.row])
     }
 }
