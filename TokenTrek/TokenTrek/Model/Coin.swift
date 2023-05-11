@@ -55,7 +55,7 @@ struct Coin: Codable {
 }
 
 struct SparklineIn7D: Codable {
-    let price: [Double]?
+    let price: [Float]?
 }
 
 //[
