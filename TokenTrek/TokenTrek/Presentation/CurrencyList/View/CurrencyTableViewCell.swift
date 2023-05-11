@@ -110,6 +110,7 @@ class CurrencyTableViewCell: UITableViewCell {
         priceLabel.text = coin.currentPrice.asCurrencyWith6Decimals()
         marketCapLabel.text = coin.marketCap?.convertToCurrency()
         priceChangeLabel.text = coin.priceChangePercentage24H?.asPercentString()
+        
         //TODO: Move it somewhere?
         if coin.priceChangePercentage24H ?? 0 >= 0 {
             priceChangeLabel.backgroundColor = UIColor.greenBackground
@@ -152,8 +153,7 @@ class CurrencyTableViewCell: UITableViewCell {
             make.height.equalTo(32)
         }
         marketCapRankLabel.snp.makeConstraints { make in
-            make.width.equalTo(27
-            )
+            make.width.equalTo(27)
         }
     }
 }

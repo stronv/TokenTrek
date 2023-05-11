@@ -4,6 +4,7 @@ platform :ios, '13.0'
 
 target 'TokenTrek' do
   pod 'SnapKit'
-  pod 'Charts'	
+  pod 'Charts'
+  pod 'Moya'
 
 end
