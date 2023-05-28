@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol RefreshDelegate: AnyObject {
+    func refreshPage()
+}
+
 class ErrorView: UIView {
+    
+    weak var delegate: RefreshDelegate?
     //MARK: - UI
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -41,6 +47,20 @@ class ErrorView: UIView {
         label.textAlignment = .center
         return label
     }()
+    
+    private let refreshPageButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 25
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor.blueButton
+        button.setTitle("Перезагрузить", for: .normal)
+        button.addTarget(self, action: #selector(refreshPageButtonAction), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func refreshPageButtonAction() {
+        delegate?.refreshPage()
+    }
 
     init() {
         super.init(frame: .zero)
@@ -61,9 +81,9 @@ class ErrorView: UIView {
         addSubview(stackView)
         
         stackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(209)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
+            make.top.equalToSuperview().inset(Constants.topInsetForStackVIew)
+            make.leading.equalToSuperview().inset(Constants.leftInset)
+            make.trailing.equalToSuperview().inset(Constants.rightInset)
         }
     }
 }

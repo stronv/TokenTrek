@@ -1,24 +1,24 @@
 //
-//  CurrencyListCoordinator.swift
+//  SearchViewCoordinator.swift
 //  TokenTrek
 //
-//  Created by Artyom Tabachenko on 13.04.2023.
+//  Created by Artyom Tabachenko on 21.05.2023.
 //
 
 import UIKit
 
-protocol CurrencyListCoordinatorProtocol: Coordinator {
+protocol SearchViewCoordinatorProtocol: Coordinator {
     func goToCoinDetail(coin: Coin)
-    func goToSearchView()
+    func toCurrencyList()
 }
 
-class CurrencyListCoordinator: CurrencyListCoordinatorProtocol {
+class SearchViewCoordinator: SearchViewCoordinatorProtocol {
     var navigationController = UINavigationController()
     var appCoordinator: AppCoordinator?
     
     init() {
-        let controller = CurrencyListViewController()
-        controller.output = CurrencyListPresenter(self, view: controller)
+        let controller = SearchViewController()
+        controller.output = SearchViewPresenter(self, view: controller)
         let navigationController = UINavigationController(rootViewController: controller)
         self.navigationController = navigationController
     }
@@ -33,7 +33,7 @@ class CurrencyListCoordinator: CurrencyListCoordinatorProtocol {
         navigationController.pushViewController(controller, animated: true)
     }
     
-    func goToSearchView() {
-        appCoordinator?.goToSearchPage()
+    func toCurrencyList() {
+        appCoordinator?.goToMainPage()
     }
 }

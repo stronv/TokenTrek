@@ -25,6 +25,12 @@ class AppCoordinator {
         setRootViewController(coordinator.start(), duration: 0.3)
     }
     
+    func goToSearchPage() {
+        let coordinator = SearchViewCoordinator()
+        coordinator.appCoordinator = self
+        setRootViewController(coordinator.start(), duration: 0.3)
+    }
+    
     func setRootViewController(_ vc: UIViewController, duration: TimeInterval) {
         window.rootViewController = vc
         window.makeKeyAndVisible()

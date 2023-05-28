@@ -6,5 +6,4 @@ target 'TokenTrek' do
   pod 'SnapKit'
   pod 'Charts'
   pod 'Moya'
-
 end

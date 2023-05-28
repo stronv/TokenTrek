@@ -10,6 +10,7 @@ import Foundation
 protocol CurrencyListPresenterProtocol {
     var coins: [Coin] { get }
     func showCoinDetail(indexPath: IndexPath)
+    func showSearchView()
     func viewDidLoadEvent()
     func reloadData()
     func sortCoins(sort: SortOption)
@@ -23,6 +24,7 @@ enum SortOption {
 }
 
 final class CurrencyListPresenter: CurrencyListPresenterProtocol {
+    
     private let moduleOutput: CurrencyListCoordinatorProtocol
     private weak var view: CurrencyListViewProtocol?
         
@@ -33,23 +35,28 @@ final class CurrencyListPresenter: CurrencyListPresenterProtocol {
     
     var coins: [Coin] = []
     private let networkManager: NetworkManager = NetworkManager()
+    private let coreDataManager = CoreDataManager.shared()
     
     private func loadCoins() {
         networkManager.fetchCoins { [weak self] (result) in
             guard let weakSelf = self else { return }
             switch result {
             case .success(let response):
-                weakSelf.coins = response
+                weakSelf.coreDataManager.prepare(dataForSaving: response)
+//                print(response.first?.currentPrice)
+                weakSelf.coins = weakSelf.coreDataManager.fetchCoinsFromCoreData()
+                weakSelf.coins.sort(by: { $0.marketCapRank < $1.marketCapRank })
                 weakSelf.view?.updateCurrencyListState(.data)
-                DispatchQueue.main.async {
-                    weakSelf.view?.reloadData()
-                }
+                weakSelf.view?.reloadData()
             case .failure(let error):
+                weakSelf.coins = weakSelf.coreDataManager.fetchCoinsFromCoreData()
                 weakSelf.view?.updateCurrencyListState(.error)
+                weakSelf.coins.sort(by: { $0.marketCapRank < $1.marketCapRank })
+                weakSelf.view?.reloadData()
                 print(error)
             }
         }
-    }
+    } 
 }
 
 extension CurrencyListPresenter {
@@ -59,11 +66,14 @@ extension CurrencyListPresenter {
     
     func reloadData() {
         loadCoins()
-        print("reload data method is alive")
     }
     
     func showCoinDetail(indexPath: IndexPath) {
         moduleOutput.goToCoinDetail(coin: coins[indexPath.row])
+    }
+    
+    func showSearchView() {
+        moduleOutput.goToSearchView()
     }
     
     func sortCoins(sort: SortOption) {

@@ -12,7 +12,6 @@ class CurrencyTableViewCell: UITableViewCell {
     
     static let identifier = "CurrencyTableViewCell"
     // MARK: - UI
-
     let marketCapRankLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
@@ -87,6 +86,12 @@ class CurrencyTableViewCell: UITableViewCell {
         return stackView
     }()
     
+    private enum ButtonStateView {
+        case red
+        case green
+        case white
+    }
+    
     // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
          super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -103,21 +108,17 @@ class CurrencyTableViewCell: UITableViewCell {
      }
     
     //MARK: - Private Methods
-    func configure(coin: Coin) {
-        marketCapRankLabel.text = "\(coin.marketCapRank)"
-        currencyLogoImage.downloaded(from: coin.image)
-        nameLabel.text = coin.symbol.uppercased()
-        priceLabel.text = coin.currentPrice.asCurrencyWith6Decimals()
-        marketCapLabel.text = coin.marketCap?.convertToCurrency()
-        priceChangeLabel.text = coin.priceChangePercentage24H?.asPercentString()
-        
-        //TODO: Move it somewhere?
-        if coin.priceChangePercentage24H ?? 0 >= 0 {
-            priceChangeLabel.backgroundColor = UIColor.greenBackground
-            priceChangeLabel.textColor = UIColor.green
-        } else {
+    private func priceChangeButtonConfig(state: ButtonStateView) {
+        switch state {
+        case .red:
             priceChangeLabel.backgroundColor = UIColor.redBackground
             priceChangeLabel.textColor = UIColor.red
+        case .green:
+            priceChangeLabel.backgroundColor = UIColor.greenBackground
+            priceChangeLabel.textColor = UIColor.green
+        case .white:
+            priceChangeLabel.backgroundColor = UIColor.clear
+            priceChangeLabel.textColor = UIColor.clear
         }
     }
     
@@ -154,6 +155,26 @@ class CurrencyTableViewCell: UITableViewCell {
         }
         marketCapRankLabel.snp.makeConstraints { make in
             make.width.equalTo(27)
+        }
+    }
+}
+
+//MARK: - Public methods
+extension CurrencyTableViewCell {
+    func configure(coin: Coin) {
+        marketCapRankLabel.text = "\(coin.marketCapRank)"
+        currencyLogoImage.downloaded(from: coin.image)
+        nameLabel.text = coin.symbol.uppercased()
+        priceLabel.text = coin.currentPrice.asCurrencyWith6Decimals()
+        marketCapLabel.text = coin.marketCap?.convertToCurrency()
+        priceChangeLabel.text = coin.priceChangePercentage24H?.asPercentString()
+        
+        if coin.priceChangePercentage24H ?? 0 >= 0 {
+            priceChangeButtonConfig(state: .red)
+        } else if coin.priceChangePercentage24H ?? 0 <= 0 {
+            priceChangeButtonConfig(state: .green)
+        } else {
+            priceChangeButtonConfig(state: .white)
         }
     }
 }
