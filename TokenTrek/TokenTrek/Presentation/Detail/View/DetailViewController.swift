@@ -12,9 +12,6 @@ import SnapKit
 protocol DetailViewControllerProtocol: AnyObject {}
 
 class DetailViewController: UIViewController, DetailViewControllerProtocol {
-    
-    var coin: Coin?
-    
     //MARK: - UI
     private let nameLabel: UILabel = {
         let label = UILabel()
@@ -32,9 +29,6 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         chart.doubleTapToZoomEnabled = false
         
         let yAxis = chart.leftAxis
-
-        yAxis.labelTextColor = .black
-        yAxis.axisLineColor = .systemGray
         yAxis.drawLabelsEnabled = false
 
         return chart
@@ -69,27 +63,25 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         
         addSubviews()
         makeConstraints()
-        configure()
-        
-        setData()
         
         lineChartView.delegate = self
     }
     
     //MARK: - Private methods
-    
-    private func configure() {
-        nameLabel.text = coin?.name
-        priceLabel.text = coin?.currentPrice.asCurrencyWith6Decimals()
-        priceChangeLabel.text = coin?.priceChangePercentage24H?.asPercentString()
+    func configure(coin: Coin) {
+        nameLabel.text = coin.name
+        priceLabel.text = coin.currentPrice.asCurrencyWith6Decimals()
+        priceChangeLabel.text = coin.priceChangePercentage24H?.asPercentString()
         //TODO: Move it somewhere?
-        if coin?.priceChangePercentage24H ?? 0 >= 0 {
+        if coin.priceChangePercentage24H ?? 0 >= 0 {
             priceChangeLabel.backgroundColor = UIColor.greenBackground
             priceChangeLabel.textColor = UIColor.green
         } else {
             priceChangeLabel.backgroundColor = UIColor.redBackground
             priceChangeLabel.textColor = UIColor.red
         }
+        setData(coin: coin)
+        navBarSetup(coin: coin)
     }
     
     private func addSubviews() {
@@ -126,15 +118,15 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
     }
     
     //MARK: - Chart Methods
-    private func setData() {
+    private func setData(coin: Coin) {
         var priceData: [ChartDataEntry] = []
-        guard let prices = coin?.sparklineIn7D?.price else { return }
+        guard let prices = coin.sparklineIn7D?.price else { return }
         
         for (x, y) in prices.enumerated() {
             priceData.append(ChartDataEntry(x: Double(x), y: Double(y)))
         }
-        let set = LineChartDataSet(entries: priceData, label: "\(coin!.symbol.uppercased()) price")
-        set.setColor(UIColor.green)
+        let set = LineChartDataSet(entries: priceData, label: "\(coin.symbol.uppercased()) price")
+        set.setColor(UIColor.blueChart)
         set.highlightColor = .systemGray
         set.lineWidth = 2
         set.highlightLineWidth = 1
@@ -148,10 +140,19 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         
         customMarkerView.chartView = lineChartView
         lineChartView.marker = customMarkerView
-        
+    }
+    
+    //MARK: - Objc Methods
+    @objc func searchRightButtonAction() {
+        print("search tapped")
+    }
+    
+    @objc func backLeftButtonAction() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
+//MARK: - Chart extension methods
 extension DetailViewController: ChartViewDelegate {
     func chartValueSelected(
         _ chartView: ChartViewBase,
@@ -161,3 +162,45 @@ extension DetailViewController: ChartViewDelegate {
         priceLabel.text = entry.y.asCurrencyWith6Decimals()
     }
 }
+
+//MARK: - Navigation Bar Customize
+extension DetailViewController {
+    private func createCustomButton(imageName: String, selector: Selector) -> UIBarButtonItem {
+        let button = UIButton(type: .system)
+        button.setImage(
+            UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate),
+            for: .normal
+        )
+        button.tintColor = UIColor.gray
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: selector, for: .touchUpInside)
+        
+        let menuBarItem = UIBarButtonItem(customView: button)
+        return menuBarItem
+    }
+    
+    private func navBarSetup(coin: Coin) {
+        let searchRightButton = createCustomButton(
+            imageName: "searchImage",
+            selector: #selector(searchRightButtonAction)
+        )
+        let backLeftButton = createCustomButton(
+            imageName: "backButtonImage",
+            selector: #selector(backLeftButtonAction)
+        )
+        
+        let customTitleView = CustomTitleView(coin: CoinViewModel(
+            symbol: coin.symbol.uppercased(),
+            marketCap: "\(coin.marketCapRank)",
+            image: coin.image)
+        )
+        
+        navigationItem.rightBarButtonItem = searchRightButton
+        navigationItem.leftBarButtonItem = backLeftButton
+        navigationItem.titleView = customTitleView
+    }
+}
+
+

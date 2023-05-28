@@ -107,6 +107,8 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         setConstraints()
         output.viewDidLoadEvent()
         tableViewSetup()
+        
+        navBarSetup()
     }
     
     //MARK: - Private Methods
@@ -125,29 +127,30 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
     
     private func setConstraints() {
         view.backgroundColor = .white
+        
         filterButtonsStackView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
+            make.leading.equalToSuperview().inset(Constants.leftInset)
+            make.trailing.equalToSuperview().inset(Constants.rightInset)
         }
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(marketCapRankButton.snp_bottomMargin).offset(12)
+            make.top.equalTo(marketCapRankButton.snp_bottomMargin).offset(Constants.viewOffset)
             make.bottom.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
         
         errorView.snp.makeConstraints { make in
-            make.top.equalTo(marketCapRankButton.snp_bottomMargin).offset(12)
+            make.top.equalTo(marketCapRankButton.snp_bottomMargin).offset(Constants.viewOffset)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
         
         refreshPageButton.snp.makeConstraints { make in
-            make.height.equalTo(50)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(Constants.buttonHeight)
+            make.leading.equalToSuperview().inset(Constants.leftInset)
+            make.trailing.equalToSuperview().inset(Constants.rightInset)
             make.bottom.equalToSuperview().inset(20)
         }
     }
@@ -159,6 +162,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.refreshControl = refreshControl
+        errorView.delegate = self
     }
     
     //MARK: - Objc Methods
@@ -235,6 +239,9 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         output.reloadData()
     }
 
+    @objc func searchRightButtonAction() {
+        output.showSearchView()
+    }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
@@ -281,6 +288,10 @@ extension CurrencyListViewController {
             errorView.isHidden = true
             
         case .error:
+            tableView.isHidden = false
+            filterButtonsStackView.isHidden = false
+            errorView.isHidden = true
+        case .fatalError:
             tableView.isHidden = true
             filterButtonsStackView.isHidden = true
             errorView.isHidden = false
@@ -292,4 +303,50 @@ extension CurrencyListViewController {
     }
 }
 
+//MARK: - CustomNavigationBar
+extension CurrencyListViewController {
+    private func createCustomTitleView(image: String) -> UIView {
+        let view = UIView()
+        
+        let titleImage = UIImageView()
+        titleImage.image = UIImage(named: image)
+        view.addSubview(titleImage)
+        
+        titleImage.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.height.equalTo(24)
+            make.width.equalTo(70)
+        }
+        return view
+    }
+    
+    private func createCustomButton(imageName: String, selector: Selector) -> UIBarButtonItem {
+        let button = UIButton(type: .system)
+        button.setImage(
+            UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate),
+            for: .normal
+        )
+        button.tintColor = UIColor.gray
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: selector, for: .touchUpInside)
+        
+        let menuBarItem = UIBarButtonItem(customView: button)
+        return menuBarItem
+    }
+    
+    private func navBarSetup() {
+        let searchRightButton = createCustomButton(imageName: "searchImage", selector: #selector(searchRightButtonAction))
+        let customTitleView = createCustomTitleView(image: "textLogo")
+        navigationItem.rightBarButtonItem = searchRightButton
+        navigationItem.titleView = customTitleView
+    }
+}
 
+extension CurrencyListViewController: RefreshDelegate {
+    func refreshPage() {
+        output.reloadData()
+    }
+}

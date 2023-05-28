@@ -10,4 +10,5 @@ import Foundation
 enum CurrencyListState {
     case data
     case error
+    case fatalError
 }

@@ -13,7 +13,7 @@ enum CoinTarget {
 
 extension CoinTarget: TargetType {
     var baseURL: URL {
-        guard let url = URL(string: "https://api.coingecko.com") else { fatalError("Could't get URL") }
+        guard let url = URL(string: "https://api.coingecko.com") else { fatalError("Could not get URL") }
         return url
     }
     var path: String {

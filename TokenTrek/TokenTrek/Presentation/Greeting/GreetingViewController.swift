@@ -130,14 +130,14 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
     
     private func setConstraints() {
         greetingStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(209)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
+            make.top.equalToSuperview().inset(Constants.topInsetForStackVIew)
+            make.leading.equalToSuperview().inset(Constants.leftInset)
+            make.trailing.equalToSuperview().inset(Constants.rightInset)
         }
         
         mainButtonsStackView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
+            make.leading.equalToSuperview().inset(Constants.leftInset)
+            make.trailing.equalToSuperview().inset(Constants.rightInset)
             make.bottom.equalToSuperview().inset(45)
         }
         
@@ -147,20 +147,20 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
         }
         
         createAccountButton.snp.makeConstraints { make in
-            make.height.equalTo(50)
+            make.height.equalTo(Constants.buttonHeight)
             make.leading.equalToSuperview()
             make.trailing.equalTo(signInButton.snp.trailing).inset(110)
         }
         
         signInButton.snp.makeConstraints { make in
-            make.height.equalTo(50)
+            make.height.equalTo(Constants.buttonHeight)
             make.trailing.equalToSuperview()
         }
         
         toMainScreenButton.snp.makeConstraints { make in
-            make.height.equalTo(50)
-            make.leading.equalToSuperview().inset(80)
-            make.trailing.equalToSuperview().inset(80)
+            make.height.equalTo(Constants.buttonHeight)
+            make.leading.equalToSuperview().inset(Constants.leftInsetForButton)
+            make.trailing.equalToSuperview().inset(Constants.rightInsetForButton)
         }
     }
 }
