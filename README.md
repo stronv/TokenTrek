@@ -1,2 +1,2 @@
 # TokenTrek
-Project for IOS/Tinkoff practices. 
+TokenTrek is an application for tracking changes in cryptocurrency prices in real time. 
