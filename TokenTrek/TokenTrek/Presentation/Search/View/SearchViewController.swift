@@ -167,7 +167,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate, UITe
 
 }
 
-//MARK: - Publich Methods
+//MARK: - Public Methods
 extension SearchViewController {
     func reloadData() {
         tableView.reloadData()

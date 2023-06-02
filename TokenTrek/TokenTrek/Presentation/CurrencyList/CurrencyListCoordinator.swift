@@ -10,6 +10,7 @@ import UIKit
 protocol CurrencyListCoordinatorProtocol: Coordinator {
     func goToCoinDetail(coin: Coin)
     func goToSearchView()
+    func goToSignIn()
 }
 
 class CurrencyListCoordinator: CurrencyListCoordinatorProtocol {
@@ -36,5 +37,9 @@ class CurrencyListCoordinator: CurrencyListCoordinatorProtocol {
     
     func goToSearchView() {
         appCoordinator?.goToSearchPage()
+    }
+    
+    func goToSignIn() {
+        appCoordinator?.goToLoginPage()
     }
 }

@@ -12,6 +12,7 @@ protocol CurrencyListViewProtocol: AnyObject {
     func reloadData()
     func updateCurrencyListState(_ state: CurrencyListState)
     func checkAuthState(state: AuthStatus)
+    
 }
 
 class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
@@ -257,6 +258,10 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         output.showSearchView()
     }
     
+    @objc func signInButtonAction() {
+        output.showSignIn()
+    }
+    
     @objc func watchListButtonAction() {
         output.changeType(type: .watchList)
     }
@@ -371,8 +376,10 @@ extension CurrencyListViewController {
     }
     
     private func navBarSetup() {
-        let searchRightButton = createCustomButton(imageName: "searchImage", selector: #selector(searchRightButtonAction))
         let customTitleView = createCustomTitleView(image: "textLogo")
+        let searchRightButton = createCustomButton(imageName: "searchImage", selector: #selector(searchRightButtonAction))
+        let profileLeftButton = createCustomButton(imageName: "profileLogo", selector: #selector(signInButtonAction))
+        navigationItem.leftBarButtonItem = profileLeftButton
         navigationItem.rightBarButtonItem = searchRightButton
         navigationItem.titleView = customTitleView
     }

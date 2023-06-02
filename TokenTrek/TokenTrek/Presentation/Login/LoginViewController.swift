@@ -10,6 +10,7 @@ import SnapKit
 
 protocol LoginViewProtocol: AnyObject {
     func updateSignUpState(_ state: SignUpState)
+    func checkAuthState(state: AuthStatus)
 }
 
 class LoginViewController: UIViewController, LoginViewProtocol {
@@ -103,6 +104,16 @@ class LoginViewController: UIViewController, LoginViewProtocol {
         return stackView
     }()
     
+    private let signOutButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 25
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor.blueButton
+        button.setTitle("Выйти", for: .normal)
+        button.addTarget(self, action: #selector(signOutButtonAction), for: .touchUpInside)
+        return button
+    }()
+    
     //MARK: - MVP Properties
     var output: LoginPresenter!
     
@@ -111,7 +122,9 @@ class LoginViewController: UIViewController, LoginViewProtocol {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        
         navBarSetup()
+        output.viewDidLoadEvent()
         addSubviews()
         setConstraints()
     }
@@ -127,6 +140,7 @@ class LoginViewController: UIViewController, LoginViewProtocol {
         view.addSubview(passwordLabel)
         view.addSubview(passwordTextField)
         view.addSubview(bottomStackView)
+        view.addSubview(signOutButton)
     }
     
     private func setConstraints() {
@@ -160,6 +174,13 @@ class LoginViewController: UIViewController, LoginViewProtocol {
             make.height.equalTo(50)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
+        }
+        
+        signOutButton.snp.makeConstraints { make in
+            make.height.equalTo(50)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(60)
         }
         
         bottomStackView.snp.makeConstraints { make in
@@ -235,7 +256,9 @@ extension LoginViewController {
         output.showRegistration()
     }
     
-    
+    @objc func signOutButtonAction() {
+        output.showMainPage()
+    }
 }
 
 extension LoginViewController {
@@ -250,6 +273,26 @@ extension LoginViewController {
             showAlert(
                 alertTitle: "Ошибка!",
                 alertMessage: "\(AuthError.unknownError)")
+        }
+    }
+    
+    func checkAuthState(state: AuthStatus) {
+        switch state {
+        case .isAuthorized:
+            bottomStackView.isHidden = true
+            secondaryStackView.isHidden = true
+            emailLabel.isHidden = true
+            emailTextField.isHidden = true
+            passwordLabel.isHidden = true
+            passwordTextField.isHidden = true
+            self.navigationController?.isNavigationBarHidden = true
+            signOutButton.isHidden = false
+        case .isNonauthorized:
+            bottomStackView.isHidden = false
+            signOutButton.isHidden = false
+            secondaryStackView.isHidden = false
+            signOutButton.isHidden = true
+            self.navigationController?.isNavigationBarHidden = true
         }
     }
 }

@@ -10,6 +10,9 @@ import Firebase
 
 protocol LoginPresenterProtocol {
     func signIn(email: String, password: String, completion: @escaping(SignInResult) -> Void)
+    func showGreetingPage()
+    func showRegistration()
+    func showMainPage()
 
 }
 
@@ -38,6 +41,20 @@ final class LoginPresenter: LoginPresenterProtocol {
         }
     }
     
+    func viewDidLoadEvent() {
+        checkIfUidExists()
+    }
+    
+    private func checkIfUidExists() -> Bool {
+        if let _ = UserDefaults.standard.object(forKey: "uid") as? String {
+            view?.checkAuthState(state: .isAuthorized)
+            return true
+        } else {
+            view?.checkAuthState(state: .isNonauthorized)
+            return false
+        }
+    }
+    
     
     func showGreetingPage() {
         moduleOutput.toGreetingPage()
@@ -45,5 +62,10 @@ final class LoginPresenter: LoginPresenterProtocol {
     
     func showRegistration() {
         moduleOutput.toSignUp()
+    }
+    
+    func showMainPage() {
+        firebaseService.signOut()
+        moduleOutput.toCurrencyList()
     }
 }

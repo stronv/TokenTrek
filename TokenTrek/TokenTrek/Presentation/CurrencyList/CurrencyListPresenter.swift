@@ -12,6 +12,7 @@ protocol CurrencyListPresenterProtocol {
     func showCoinDetail(indexPath: IndexPath)
     func showSearchView()
     func viewDidLoadEvent()
+    func showSignIn()
     func reloadData()
     func sortCoins(sort: SortOption)
     func changeType(type: CurrencyListType)
@@ -95,6 +96,10 @@ extension CurrencyListPresenter {
     
     func showSearchView() {
         moduleOutput.goToSearchView()
+    }
+    
+    func showSignIn() {
+        moduleOutput.goToSignIn()
     }
     
     func changeType(type: CurrencyListType) {
