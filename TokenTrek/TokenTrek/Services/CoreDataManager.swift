@@ -171,4 +171,41 @@ class CoreDataManager: NSObject {
         sparklineIn7DMO.price = price
         return sparklineIn7DMO
     }
+    
+    func getCoinById(_ id: String) -> Coin? {
+        let fetchRequest: NSFetchRequest<CoinMO> = CoinMO.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        do {
+            let coins = try viewContext.fetch(fetchRequest)
+            guard let coinEntity = coins.first else { return nil }
+            
+            let coin = Coin(
+                id: coinEntity.id ?? "",
+                symbol: coinEntity.symbol ?? "",
+                name: coinEntity.name ?? "",
+                image: coinEntity.image ?? "",
+                currentPrice: coinEntity.currentPrice,
+                marketCapRank: Int(coinEntity.marketCapRank),
+                marketCap: coinEntity.marketCap,
+                totalVolume: coinEntity.totalVolume,
+                high24H: coinEntity.high24H,
+                low24H: coinEntity.low24H,
+                priceChange24H: coinEntity.priceChange24H,
+                priceChangePercentage24H: coinEntity.priceChangePercentage24H,
+                marketCapChange24H: coinEntity.marketCapChange24H,
+                marketCapChangePercentage24H: coinEntity.marketCapChangePercentage24H,
+                ath: coinEntity.ath,
+                athDate: coinEntity.athDate,
+                atl: coinEntity.atl,
+                atlDate: coinEntity.atlDate,
+                lastUpdated: coinEntity.lastUpdated,
+                sparklineIn7D: nil,
+                priceChangePercentage24HInCurrency: coinEntity.priceChangePercentage24HInCurrency
+            )
+            return coin
+        } catch {
+            print("Error fetching coin by id: \(error.localizedDescription)")
+            return nil
+        }
+    }
 }

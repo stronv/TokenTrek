@@ -9,7 +9,9 @@ import UIKit
 import Charts
 import SnapKit
 
-protocol DetailViewControllerProtocol: AnyObject {}
+protocol DetailViewControllerProtocol: AnyObject {
+    func updateViewState(state: AuthStatus)
+}
 
 class DetailViewController: UIViewController, DetailViewControllerProtocol {
     //MARK: - UI
@@ -41,7 +43,7 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         return label
     }()
     
-    let priceChangeLabel: UILabel = {
+    private let priceChangeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         label.layer.cornerRadius = 17
@@ -50,12 +52,24 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         return label
     }()
     
-    let nameAndPriceStackView: UIStackView = {
+    private let addToWatchListButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 25
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor.blueButton
+        button.setTitle("Добавить в список наблюдения", for: .normal)
+        button.addTarget(self, action: #selector(addToFavoritesAction), for: .touchUpInside)
+        return button
+    }()
+    
+    private let nameAndPriceStackView: UIStackView = {
         let stackview = UIStackView()
         stackview.axis = .vertical
         stackview.alignment = .leading
         return stackview
     }()
+    
+    var output: DetailViewPresenterProtocol!
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -63,6 +77,7 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         
         addSubviews()
         makeConstraints()
+        output.viewDidLoadEvent()
         
         lineChartView.delegate = self
     }
@@ -91,6 +106,7 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         view.addSubview(nameAndPriceStackView)
         view.addSubview(priceChangeLabel)
         view.addSubview(lineChartView)
+        view.addSubview(addToWatchListButton)
     }
     
     private func makeConstraints() {
@@ -114,6 +130,13 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
             
             make.topMargin.equalTo(nameAndPriceStackView.snp.top).inset(56)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(256)
+        }
+        
+        addToWatchListButton.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(50)
+            make.height.equalTo(50)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
         }
     }
     
@@ -141,18 +164,18 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         customMarkerView.chartView = lineChartView
         lineChartView.marker = customMarkerView
     }
-    
+        
     //MARK: - Objc Methods
-    @objc func searchRightButtonAction() {
-        print("search tapped")
-    }
-    
     @objc func backLeftButtonAction() {
         navigationController?.popViewController(animated: true)
     }
+    
+    @objc func addToFavoritesAction() {
+        output.addCoinToFavorite()
+    }
 }
 
-//MARK: - Chart extension methods
+//MARK: - Chart delegate methods
 extension DetailViewController: ChartViewDelegate {
     func chartValueSelected(
         _ chartView: ChartViewBase,
@@ -182,10 +205,6 @@ extension DetailViewController {
     }
     
     private func navBarSetup(coin: Coin) {
-        let searchRightButton = createCustomButton(
-            imageName: "searchImage",
-            selector: #selector(searchRightButtonAction)
-        )
         let backLeftButton = createCustomButton(
             imageName: "backButtonImage",
             selector: #selector(backLeftButtonAction)
@@ -196,11 +215,18 @@ extension DetailViewController {
             marketCap: "\(coin.marketCapRank)",
             image: coin.image)
         )
-        
-        navigationItem.rightBarButtonItem = searchRightButton
         navigationItem.leftBarButtonItem = backLeftButton
         navigationItem.titleView = customTitleView
     }
 }
 
-
+extension DetailViewController {
+    func updateViewState(state: AuthStatus) {
+        switch state {
+        case .isAuthorized:
+            addToWatchListButton.isHidden = false
+        case .isNonauthorized:
+            addToWatchListButton.isHidden = true
+        }
+    }
+}

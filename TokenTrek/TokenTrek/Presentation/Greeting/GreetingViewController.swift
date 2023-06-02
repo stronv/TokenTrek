@@ -56,6 +56,7 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
         button.layer.cornerRadius = 25
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor.blackButton
+        button.addTarget(self, action: #selector(signInButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -113,6 +114,10 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
     
     @objc func toCurrencyListButtonAction() {
         output?.toCurrencyList()
+    }
+    
+    @objc func signInButtonAction() {
+        output?.toSignIn()
     }
     
     //MARK: - Private Functions

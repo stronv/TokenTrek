@@ -11,6 +11,7 @@ import SnapKit
 protocol CurrencyListViewProtocol: AnyObject {
     func reloadData()
     func updateCurrencyListState(_ state: CurrencyListState)
+    func checkAuthState(state: AuthStatus)
 }
 
 class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
@@ -85,20 +86,29 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         return stackView
     }()
     
-    //TODO: Move it to ErrorView?
-    private let refreshPageButton: UIButton = {
+    private let currencyListButton: UIButton = {
         let button = UIButton()
-        button.layer.cornerRadius = 25
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor.blueButton
-        button.setTitle("Перезагрузить", for: .normal)
-        button.addTarget(self, action: #selector(refreshPageButtonAction), for: .touchUpInside)
+        button.setTitle("Coins", for: .normal)
+        button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
+        button.backgroundColor = .clear
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.addTarget(self, action: #selector(currencyListButtonAction), for: .touchUpInside)
+        return button
+    }()
+    
+    private let watchListButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Watch list", for: .normal)
+        button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
+        button.backgroundColor = .clear
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.addTarget(self, action: #selector(watchListButtonAction), for: .touchUpInside)
         return button
     }()
     
     //MARK: - MVP Properties
     var output: CurrencyListPresenterProtocol!
-    
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +116,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         addSubviews()
         setConstraints()
         output.viewDidLoadEvent()
+        output.reloadData()
         tableViewSetup()
         
         navBarSetup()
@@ -118,21 +129,31 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         filterButtonsStackView.addArrangedSubview(priceButton)
         filterButtonsStackView.addArrangedSubview(priceChangePercentageButton)
         
-        errorView.addSubview(refreshPageButton)
-        
         view.addSubview(filterButtonsStackView)
         view.addSubview(tableView)
         view.addSubview(errorView)
+        view.addSubview(currencyListButton)
+        view.addSubview(watchListButton)
     }
     
     private func setConstraints() {
         view.backgroundColor = .white
         
         filterButtonsStackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalToSuperview().inset(Constants.leftInset)
-            make.trailing.equalToSuperview().inset(Constants.rightInset)
+            make.top.equalTo(currencyListButton.snp.bottom)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
         }
+        
+        currencyListButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalToSuperview().inset(30)
+        }
+        watchListButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.trailing.equalToSuperview().inset(20)
+        }
+        
         tableView.snp.makeConstraints { make in
             make.top.equalTo(marketCapRankButton.snp_bottomMargin).offset(Constants.viewOffset)
             make.bottom.equalToSuperview()
@@ -145,13 +166,6 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-        }
-        
-        refreshPageButton.snp.makeConstraints { make in
-            make.height.equalTo(Constants.buttonHeight)
-            make.leading.equalToSuperview().inset(Constants.leftInset)
-            make.trailing.equalToSuperview().inset(Constants.rightInset)
-            make.bottom.equalToSuperview().inset(20)
         }
     }
     
@@ -242,6 +256,14 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
     @objc func searchRightButtonAction() {
         output.showSearchView()
     }
+    
+    @objc func watchListButtonAction() {
+        output.changeType(type: .watchList)
+    }
+    
+    @objc func currencyListButtonAction() {
+        output.changeType(type: .currencyList)
+    }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
@@ -301,6 +323,17 @@ extension CurrencyListViewController {
     func reloadData() {
         tableView.reloadData()
     }
+    
+    func checkAuthState(state: AuthStatus) {
+        switch state {
+        case .isAuthorized:
+            currencyListButton.isHidden = false
+            watchListButton.isHidden = false
+        case .isNonauthorized:
+            currencyListButton.isHidden = true
+            watchListButton.isHidden = true
+        }
+    }
 }
 
 //MARK: - CustomNavigationBar
@@ -344,7 +377,7 @@ extension CurrencyListViewController {
         navigationItem.titleView = customTitleView
     }
 }
-
+//MARK: - Delegates
 extension CurrencyListViewController: RefreshDelegate {
     func refreshPage() {
         output.reloadData()

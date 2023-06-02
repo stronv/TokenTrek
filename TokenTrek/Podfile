@@ -6,4 +6,8 @@ target 'TokenTrek' do
   pod 'SnapKit'
   pod 'Charts'
   pod 'Moya'
+  pod 'FirebaseAuth'
+  pod 'FirebaseFirestore'
+  pod 'Firebase/Core'
+  pod 'FirebaseDatabase'
 end

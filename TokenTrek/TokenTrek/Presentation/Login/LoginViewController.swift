@@ -1,5 +1,5 @@
 //
-//  RegistrationViewController.swift
+//  LoginViewController.swift
 //  TokenTrek
 //
 //  Created by Artyom Tabachenko on 20.03.2023.
@@ -8,11 +8,11 @@
 import UIKit
 import SnapKit
 
-protocol RegistrationViewProtocol: AnyObject {
+protocol LoginViewProtocol: AnyObject {
     func updateSignUpState(_ state: SignUpState)
 }
 
-class RegistrationViewController: UIViewController, RegistrationViewProtocol {
+class LoginViewController: UIViewController, LoginViewProtocol {
     
     //MARK: - UI
     private let emailLabel: UILabel = {
@@ -60,30 +60,30 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
         return textField
     }()
     
-    private let createAccountButton: UIButton = {
+    private let signInButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 25
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor.blueButton
-        button.setTitle("Создать аккаунт", for: .normal)
-        button.addTarget(self, action: #selector(registerPressed), for: .touchUpInside)
+        button.setTitle("Войти", for: .normal)
+        button.addTarget(self, action: #selector(signInButtonPressed), for: .touchUpInside)
         return button
     }()
     
-    private let alredyRegisterLabel: UILabel = {
+    private let stillNoAccountLabel: UILabel = {
         let label = UILabel()
-        label.text = "Уже есть аккаунт?"
+        label.text = "Нет аккаунта?"
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 18)
         label.textColor = UIColor.gray
         label.textAlignment = .center
         return label
     }()
     
-    private let signInButton: UIButton = {
+    private let registrationButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Войти", for: .normal)
+        button.setTitle("Зарегистрироваться", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.addTarget(self, action: #selector(signInButtonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(registrationButtonAction), for: .touchUpInside)
         return button
     }()
         
@@ -103,7 +103,8 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
         return stackView
     }()
     
-    var output: RegistrationPresenter!
+    //MARK: - MVP Properties
+    var output: LoginPresenter!
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -117,9 +118,9 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     
     //MARK: - Private Functions
     private func addSubviews() {
-        secondaryStackView.addArrangedSubview(alredyRegisterLabel)
-        secondaryStackView.addArrangedSubview(signInButton)
-        bottomStackView.addArrangedSubview(createAccountButton)
+        secondaryStackView.addArrangedSubview(stillNoAccountLabel)
+        secondaryStackView.addArrangedSubview(registrationButton)
+        bottomStackView.addArrangedSubview(signInButton)
         bottomStackView.addArrangedSubview(secondaryStackView)
         view.addSubview(emailLabel)
         view.addSubview(emailTextField)
@@ -155,7 +156,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
             make.height.equalTo(48)
         }
         
-        createAccountButton.snp.makeConstraints { make in
+        signInButton.snp.makeConstraints { make in
             make.height.equalTo(50)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
@@ -200,11 +201,10 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     }
 }
 
-extension RegistrationViewController {
-    
+extension LoginViewController {
     //MARK: - Objc Methods
-    @objc func registerPressed() {
-        output.signUp(email: emailTextField.text!, password: passwordTextField.text) { result in
+    @objc func signInButtonAction() {
+        output.signIn(email: emailTextField.text!, password: passwordTextField.text!) { result in
             switch result {
             case .succes:
                 print("Succes from Presenter")
@@ -213,22 +213,39 @@ extension RegistrationViewController {
             }
         }
     }
-    
     @objc func backButtonAction() {
         output.showGreetingPage()
     }
     
     @objc func signInButtonPressed() {
-        output.toSignIn()
+        output.signIn(
+            email: emailTextField.text!,
+            password: passwordTextField.text!) { result in
+                switch result {
+                case .succes:
+                    print("succes login")
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+                
+            }
     }
+    
+    @objc func registrationButtonAction() {
+        output.showRegistration()
+    }
+    
+    
 }
 
-extension RegistrationViewController {
+extension LoginViewController {
     //MARK: - Public Methods
     func updateSignUpState(_ state: SignUpState) {
         switch state {
         case .succes:
-            print("succes")
+            showAlert(
+                alertTitle: "Вы успешно зарегистрированы!",
+                alertMessage: "")
         case .failure:
             showAlert(
                 alertTitle: "Ошибка!",

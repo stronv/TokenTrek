@@ -18,23 +18,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         let coordinator = AppCoordinator()
         coordinator.window = window
-        coordinator.goToGreetingPage()
+        
+        if UserDefaults.standard.value(forKey: "uid") == nil {
+            coordinator.goToGreetingPage()
+        } else {
+            coordinator.goToMainPage()
+        }
+        
         window.makeKeyAndVisible()
     }
-
-//    func sceneDidDisconnect(_ scene: UIScene) {
-//    }
-//
-//    func sceneDidBecomeActive(_ scene: UIScene) {
-//    }
-//
-//    func sceneWillResignActive(_ scene: UIScene) {
-//    }
-//
-//    func sceneWillEnterForeground(_ scene: UIScene) {
-//    }
-//
-//    func sceneDidEnterBackground(_ scene: UIScene) {
-//        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
-//    }
 }

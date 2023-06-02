@@ -1,25 +1,26 @@
 //
-//  GreetingCoordinator.swift
+//  LoginCoordinator.swift
 //  TokenTrek
 //
-//  Created by Artyom Tabachenko on 03.04.2023.
+//  Created by Artyom Tabachenko on 31.05.2023.
 //
 
 import UIKit
 
-protocol GreetingCoordinatorProtocol: Coordinator {
-    func toCreateAccount()
+protocol LoginCoordinatorProtocol: Coordinator {
+    func toSignUp()
     func toCurrencyList()
-    func toSignIn()
+    func toGreetingPage()
 }
 
-class GreetingCoordinator: GreetingCoordinatorProtocol {
+class LoginCoordinator: LoginCoordinatorProtocol {
+    
     var navigationController = UINavigationController()
     var appCoordinator: AppCoordinator?
     
     init() {
-        let controller = GreetingViewController()
-        controller.output = GreetingPresenter(self, view: controller)
+        let controller = LoginViewController()
+        controller.output = LoginPresenter(self, view: controller)
         let navigationController = UINavigationController(rootViewController: controller)
         self.navigationController = navigationController
     }
@@ -28,7 +29,7 @@ class GreetingCoordinator: GreetingCoordinatorProtocol {
         return navigationController
     }
     
-    func toCreateAccount() {
+    func toSignUp() {
         appCoordinator?.goToRegistrationPage()
     }
     
@@ -36,7 +37,7 @@ class GreetingCoordinator: GreetingCoordinatorProtocol {
         appCoordinator?.goToMainPage()
     }
     
-    func toSignIn() {
-        appCoordinator?.goToLoginPage()
+    func toGreetingPage() {
+        appCoordinator?.goToGreetingPage()
     }
 }

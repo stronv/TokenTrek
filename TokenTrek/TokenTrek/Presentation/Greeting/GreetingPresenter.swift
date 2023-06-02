@@ -10,6 +10,7 @@ import Foundation
 protocol GreetingViewOutput {
     func toCreateAccount()
     func toCurrencyList()
+    func toSignIn()
 }
 
 class GreetingPresenter: GreetingViewOutput {
@@ -21,12 +22,15 @@ class GreetingPresenter: GreetingViewOutput {
         self.view = view
     }
     
-    //GreetingModuleOutput
     func toCreateAccount() {
         moduleOutput.toCreateAccount()
     }
     
     func toCurrencyList() {
         moduleOutput.toCurrencyList()
+    }
+    
+    func toSignIn() {
+        moduleOutput.toSignIn()
     }
 }

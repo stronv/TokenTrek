@@ -14,6 +14,7 @@ protocol CurrencyListPresenterProtocol {
     func viewDidLoadEvent()
     func reloadData()
     func sortCoins(sort: SortOption)
+    func changeType(type: CurrencyListType)
 }
 
 enum SortOption {
@@ -21,6 +22,11 @@ enum SortOption {
     case marketCap, marketCapReversed
     case price, priceReversed
     case changeInPercent, changeInPercentReversed
+}
+
+enum CurrencyListType {
+    case watchList
+    case currencyList
 }
 
 final class CurrencyListPresenter: CurrencyListPresenterProtocol {
@@ -34,34 +40,49 @@ final class CurrencyListPresenter: CurrencyListPresenterProtocol {
     }
     
     var coins: [Coin] = []
+    var favoriteCoinsId: [String] = []
+    private var currentType: CurrencyListType = .currencyList
+    
     private let networkManager: NetworkManager = NetworkManager()
     private let coreDataManager = CoreDataManager.shared()
+    private let firebaseService = FirebaseService.shared()
     
     private func loadCoins() {
-        networkManager.fetchCoins { [weak self] (result) in
-            guard let weakSelf = self else { return }
-            switch result {
-            case .success(let response):
-                weakSelf.coreDataManager.prepare(dataForSaving: response)
-//                print(response.first?.currentPrice)
-                weakSelf.coins = weakSelf.coreDataManager.fetchCoinsFromCoreData()
-                weakSelf.coins.sort(by: { $0.marketCapRank < $1.marketCapRank })
-                weakSelf.view?.updateCurrencyListState(.data)
-                weakSelf.view?.reloadData()
-            case .failure(let error):
-                weakSelf.coins = weakSelf.coreDataManager.fetchCoinsFromCoreData()
-                weakSelf.view?.updateCurrencyListState(.error)
-                weakSelf.coins.sort(by: { $0.marketCapRank < $1.marketCapRank })
-                weakSelf.view?.reloadData()
-                print(error)
+        switch currentType {
+        case .currencyList:
+            networkManager.fetchCoins { [weak self] (result) in
+                guard let weakSelf = self else { return }
+                switch result {
+                case .success(let response):
+                    weakSelf.coreDataManager.prepare(dataForSaving: response)
+                    weakSelf.coins = weakSelf.coreDataManager.fetchCoinsFromCoreData()
+                    weakSelf.coins.sort(by: { $0.marketCapRank < $1.marketCapRank })
+                    weakSelf.view?.updateCurrencyListState(.data)
+                    weakSelf.view?.reloadData()
+                case .failure(let error):
+                    weakSelf.coins = weakSelf.coreDataManager.fetchCoinsFromCoreData()
+                    weakSelf.view?.updateCurrencyListState(.error)
+                    weakSelf.coins.sort(by: { $0.marketCapRank < $1.marketCapRank })
+                    weakSelf.view?.reloadData()
+                    print(error)
+                }
             }
+        case .watchList:
+            firebaseService.getFavoriteCoins(comletion: { [weak self] favoriteCoins in
+                self?.favoriteCoinsId = favoriteCoins
+                self?.coins = self?.coins.filter { coin in
+                    favoriteCoins.contains(coin.id)
+                } ?? []
+                self?.view?.reloadData()
+            })
         }
     } 
 }
 
 extension CurrencyListPresenter {
+    
     func viewDidLoadEvent() {
-        loadCoins()
+        checkIfUidExists()
     }
     
     func reloadData() {
@@ -74,6 +95,21 @@ extension CurrencyListPresenter {
     
     func showSearchView() {
         moduleOutput.goToSearchView()
+    }
+    
+    func changeType(type: CurrencyListType) {
+        currentType = type
+        loadCoins()
+    }
+    
+    func checkIfUidExists() -> Bool {
+        if let _ = UserDefaults.standard.object(forKey: "uid") as? String {
+            view?.checkAuthState(state: .isAuthorized)
+            return true
+        } else {
+            view?.checkAuthState(state: .isNonauthorized)
+            return false
+        }
     }
     
     func sortCoins(sort: SortOption) {

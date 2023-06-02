@@ -29,6 +29,7 @@ class CurrencyListCoordinator: CurrencyListCoordinatorProtocol {
     
     func goToCoinDetail(coin: Coin) {
         let controller = DetailViewController()
+        controller.output = DetailViewPresenter(view: controller, coin: coin)
         controller.configure(coin: coin)
         navigationController.pushViewController(controller, animated: true)
     }

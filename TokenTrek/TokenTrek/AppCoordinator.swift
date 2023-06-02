@@ -25,8 +25,20 @@ class AppCoordinator {
         setRootViewController(coordinator.start(), duration: 0.3)
     }
     
+    func goToRegistrationPage() {
+        let coordinator = RegistrationCoordinator()
+        coordinator.appCoordinator = self
+        setRootViewController(coordinator.start(), duration: 0.3)
+    }
+    
     func goToSearchPage() {
         let coordinator = SearchViewCoordinator()
+        coordinator.appCoordinator = self
+        setRootViewController(coordinator.start(), duration: 0.3)
+    }
+    
+    func goToLoginPage() {
+        let coordinator = LoginCoordinator()
         coordinator.appCoordinator = self
         setRootViewController(coordinator.start(), duration: 0.3)
     }
