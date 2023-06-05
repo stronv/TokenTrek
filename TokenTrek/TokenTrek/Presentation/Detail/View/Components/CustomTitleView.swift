@@ -67,7 +67,7 @@ class CustomTitleView: UIView {
         setup()
     }
     
-    //MARK: - Private metohds
+    // MARK: - Private metohds
     private func setup() {
         titleStackView.addArrangedSubview(nameLabel)
         titleStackView.addArrangedSubview(marketCapRankLabel)

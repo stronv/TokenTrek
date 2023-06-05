@@ -17,12 +17,8 @@ protocol FirebaseServiceProtocol {
 
 final class FirebaseService: FirebaseServiceProtocol {
     
-    static let _shared = FirebaseService()
+    static let shared: FirebaseService = .init()
 
-    class func shared() -> FirebaseService {
-        return _shared
-    }
-    
     func signUp(email: String, password: String, completion: @escaping (SignUpResult) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if error == nil {
@@ -53,11 +49,11 @@ final class FirebaseService: FirebaseServiceProtocol {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if error == nil {
                 print("Sign In Succesful")
-                print(result?.user.uid)
+                print(result?.user.uid ?? "")
                 UserDefaults.standard.set(result?.user.uid, forKey: "uid")
                 completion(.succes)
             } else {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "")
                 completion(.failure(error!))
             }
         }
@@ -71,7 +67,6 @@ final class FirebaseService: FirebaseServiceProtocol {
             print(error.localizedDescription)
         }
     }
-    
     
     func updateFavoriteCoins(_ coins: [String]) {
         guard let uid = UserDefaults.standard.string(forKey: "uid") else { return }
@@ -100,11 +95,10 @@ final class FirebaseService: FirebaseServiceProtocol {
                 let data = document.data()
                 if let favoriteCoins = data?["favoriteCoins"] as? [String] {
                     comletion(favoriteCoins)
-                    print("FROM FIREBASE SERVICE: \(favoriteCoins)")
                 }
             } else {
                 comletion([])
-                print("Document does not exist")
+                print(error?.localizedDescription ?? "")
             }
         }
     }

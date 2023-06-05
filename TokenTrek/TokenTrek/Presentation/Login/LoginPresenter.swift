@@ -25,7 +25,21 @@ final class LoginPresenter: LoginPresenterProtocol {
         self.view = view
     }
     
-    private let firebaseService = FirebaseService.shared()
+    private let firebaseService = FirebaseService.shared
+    
+    private func checkIfUidExists() {
+        if let _ = UserDefaults.standard.object(forKey: "uid") as? String {
+            view?.checkAuthState(state: .isAuthorized)
+        } else {
+            view?.checkAuthState(state: .isNonauthorized)
+        }
+    }
+}
+
+extension LoginPresenter {
+    func viewDidLoadEvent() {
+        checkIfUidExists()
+    }
     
     func signIn(email: String, password: String, completion: @escaping(SignInResult) -> Void) {
         firebaseService.signIn(
@@ -41,21 +55,6 @@ final class LoginPresenter: LoginPresenterProtocol {
         }
     }
     
-    func viewDidLoadEvent() {
-        checkIfUidExists()
-    }
-    
-    private func checkIfUidExists() -> Bool {
-        if let _ = UserDefaults.standard.object(forKey: "uid") as? String {
-            view?.checkAuthState(state: .isAuthorized)
-            return true
-        } else {
-            view?.checkAuthState(state: .isNonauthorized)
-            return false
-        }
-    }
-    
-    
     func showGreetingPage() {
         moduleOutput.toGreetingPage()
     }
@@ -66,6 +65,10 @@ final class LoginPresenter: LoginPresenterProtocol {
     
     func showMainPage() {
         firebaseService.signOut()
+        moduleOutput.toCurrencyList()
+    }
+    
+    func showCurrencyList() {
         moduleOutput.toCurrencyList()
     }
 }

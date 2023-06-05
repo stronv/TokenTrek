@@ -107,7 +107,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         return button
     }()
     
-    //MARK: - MVP Properties
+    // MARK: - MVP Properties
     var output: CurrencyListPresenterProtocol!
 
     // MARK: - Lifecycle
@@ -123,7 +123,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         navBarSetup()
     }
     
-    //MARK: - Private Methods
+    // MARK: - Private Methods
     private func addSubviews() {
         filterButtonsStackView.addArrangedSubview(marketCapRankButton)
         filterButtonsStackView.addArrangedSubview(marketCapButton)
@@ -156,14 +156,14 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         }
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(marketCapRankButton.snp_bottomMargin).offset(Constants.viewOffset)
+            make.top.equalTo(marketCapRankButton.snp_bottomMargin).offset(12)
             make.bottom.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
         
         errorView.snp.makeConstraints { make in
-            make.top.equalTo(marketCapRankButton.snp_bottomMargin).offset(Constants.viewOffset)
+            make.top.equalTo(marketCapRankButton.snp_bottomMargin).offset(12)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
@@ -180,7 +180,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         errorView.delegate = self
     }
     
-    //MARK: - Objc Methods
+    // MARK: - Objc Methods
     @objc func refresh(_ sender: AnyObject) {
         output.reloadData()
         sender.endRefreshing()
@@ -305,7 +305,7 @@ extension CurrencyListViewController: UITableViewDataSource, UITableViewDelegate
     }
 }
 
-//MARK: - Publich Methods
+// MARK: - Publich Methods
 extension CurrencyListViewController {
     func updateCurrencyListState(_ state: CurrencyListState) {
         switch state {
@@ -341,7 +341,7 @@ extension CurrencyListViewController {
     }
 }
 
-//MARK: - CustomNavigationBar
+// MARK: - CustomNavigationBar
 extension CurrencyListViewController {
     private func createCustomTitleView(image: String) -> UIView {
         let view = UIView()
@@ -384,7 +384,7 @@ extension CurrencyListViewController {
         navigationItem.titleView = customTitleView
     }
 }
-//MARK: - Delegates
+// MARK: - Delegates
 extension CurrencyListViewController: RefreshDelegate {
     func refreshPage() {
         output.reloadData()

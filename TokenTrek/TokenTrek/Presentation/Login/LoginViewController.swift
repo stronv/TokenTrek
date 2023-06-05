@@ -15,7 +15,7 @@ protocol LoginViewProtocol: AnyObject {
 
 class LoginViewController: UIViewController, LoginViewProtocol {
     
-    //MARK: - UI
+    // MARK: - UI
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "Адрес электронной почты"
@@ -114,22 +114,32 @@ class LoginViewController: UIViewController, LoginViewProtocol {
         return button
     }()
     
-    //MARK: - MVP Properties
+    private let toMainScreenButton = {
+        let button = UIButton()
+        button.setTitle("На главную", for: .normal)
+        button.backgroundColor = .clear
+        button.setTitleColor(UIColor.gray, for: .normal)
+        button.layer.cornerRadius = 25
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.borderForWhiteButton
+        button.addTarget(self, action: #selector(toMainScreenButtonAction), for: .touchUpInside)
+        return button
+    }()
+    
+    // MARK: - MVP Properties
     var output: LoginPresenter!
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        
-        navBarSetup()
         output.viewDidLoadEvent()
         addSubviews()
         setConstraints()
     }
     
-    //MARK: - Private Functions
+    // MARK: - Private Functions
     private func addSubviews() {
         secondaryStackView.addArrangedSubview(stillNoAccountLabel)
         secondaryStackView.addArrangedSubview(registrationButton)
@@ -141,6 +151,7 @@ class LoginViewController: UIViewController, LoginViewProtocol {
         view.addSubview(passwordTextField)
         view.addSubview(bottomStackView)
         view.addSubview(signOutButton)
+        view.addSubview(toMainScreenButton)
     }
     
     private func setConstraints() {
@@ -176,17 +187,24 @@ class LoginViewController: UIViewController, LoginViewProtocol {
             make.trailing.equalToSuperview()
         }
         
-        signOutButton.snp.makeConstraints { make in
-            make.height.equalTo(50)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(60)
-        }
-        
         bottomStackView.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(228)
             make.leading.equalToSuperview().inset(20)
             make.trailing.equalToSuperview().inset(20)
+        }
+        
+        toMainScreenButton.snp.makeConstraints { make in
+            make.top.equalTo(bottomStackView.snp.bottom).offset(20)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(50)
+        }
+        
+        signOutButton.snp.makeConstraints { make in
+            make.height.equalTo(50)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.top.equalTo(toMainScreenButton.snp.bottom).offset(10)
         }
     }
     
@@ -196,34 +214,10 @@ class LoginViewController: UIViewController, LoginViewProtocol {
         alert.addAction(defaultAction)
         self.present(alert, animated: true)
     }
-    
-    private func createCustomButton(imageName: String, selector: Selector) -> UIBarButtonItem {
-        let button = UIButton(type: .system)
-        button.setImage(
-            UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate),
-            for: .normal
-        )
-        button.tintColor = UIColor.gray
-        button.imageView?.contentMode = .scaleAspectFit
-        button.contentVerticalAlignment = .fill
-        button.contentHorizontalAlignment = .fill
-        button.addTarget(self, action: selector, for: .touchUpInside)
-        
-        let menuBarItem = UIBarButtonItem(customView: button)
-        return menuBarItem
-    }
-    
-    private func navBarSetup() {
-        let backButton = createCustomButton(
-            imageName: "backButtonImage",
-            selector: #selector(backButtonAction)
-        )
-        navigationItem.leftBarButtonItem = backButton
-    }
 }
 
 extension LoginViewController {
-    //MARK: - Objc Methods
+    // MARK: - Objc Methods
     @objc func signInButtonAction() {
         output.signIn(email: emailTextField.text!, password: passwordTextField.text!) { result in
             switch result {
@@ -248,7 +242,6 @@ extension LoginViewController {
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-                
             }
     }
     
@@ -259,10 +252,14 @@ extension LoginViewController {
     @objc func signOutButtonAction() {
         output.showMainPage()
     }
+    
+    @objc func toMainScreenButtonAction() {
+        output.showCurrencyList()
+    }
 }
 
 extension LoginViewController {
-    //MARK: - Public Methods
+    // MARK: - Public Methods
     func updateSignUpState(_ state: SignUpState) {
         switch state {
         case .succes:
@@ -285,14 +282,11 @@ extension LoginViewController {
             emailTextField.isHidden = true
             passwordLabel.isHidden = true
             passwordTextField.isHidden = true
-            self.navigationController?.isNavigationBarHidden = true
             signOutButton.isHidden = false
         case .isNonauthorized:
             bottomStackView.isHidden = false
-            signOutButton.isHidden = false
             secondaryStackView.isHidden = false
             signOutButton.isHidden = true
-            self.navigationController?.isNavigationBarHidden = true
         }
     }
 }

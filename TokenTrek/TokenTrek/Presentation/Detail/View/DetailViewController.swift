@@ -11,10 +11,11 @@ import SnapKit
 
 protocol DetailViewControllerProtocol: AnyObject {
     func updateViewState(state: AuthStatus)
+    func setFavoriteButtonSelected(isSelected: Bool)
 }
 
 class DetailViewController: UIViewController, DetailViewControllerProtocol {
-    //MARK: - UI
+    // MARK: - UI
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 10)
@@ -57,8 +58,6 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         button.layer.cornerRadius = 25
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor.blueButton
-        button.setTitle("Добавить в список наблюдения", for: .normal)
-        button.addTarget(self, action: #selector(addToFavoritesAction), for: .touchUpInside)
         return button
     }()
     
@@ -71,7 +70,7 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
     
     var output: DetailViewPresenterProtocol!
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,12 +81,12 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         lineChartView.delegate = self
     }
     
-    //MARK: - Private methods
+    // MARK: - Private methods
     func configure(coin: Coin) {
         nameLabel.text = coin.name
         priceLabel.text = coin.currentPrice.asCurrencyWith6Decimals()
         priceChangeLabel.text = coin.priceChangePercentage24H?.asPercentString()
-        //TODO: Move it somewhere?
+        // TODO: Move it somewhere?
         if coin.priceChangePercentage24H ?? 0 >= 0 {
             priceChangeLabel.backgroundColor = UIColor.greenBackground
             priceChangeLabel.textColor = UIColor.green
@@ -140,7 +139,7 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         }
     }
     
-    //MARK: - Chart Methods
+    // MARK: - Chart Methods
     private func setData(coin: Coin) {
         var priceData: [ChartDataEntry] = []
         guard let prices = coin.sparklineIn7D?.price else { return }
@@ -165,7 +164,7 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         lineChartView.marker = customMarkerView
     }
         
-    //MARK: - Objc Methods
+    // MARK: - Objc Methods
     @objc func backLeftButtonAction() {
         navigationController?.popViewController(animated: true)
     }
@@ -173,9 +172,13 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
     @objc func addToFavoritesAction() {
         output.addCoinToFavorite()
     }
+    
+    @objc func removeFromFavoritesAction() {
+        output.removeCoinFromFavorite()
+    }
 }
 
-//MARK: - Chart delegate methods
+// MARK: - Chart delegate methods
 extension DetailViewController: ChartViewDelegate {
     func chartValueSelected(
         _ chartView: ChartViewBase,
@@ -186,7 +189,7 @@ extension DetailViewController: ChartViewDelegate {
     }
 }
 
-//MARK: - Navigation Bar Customize
+// MARK: - Navigation Bar Customize
 extension DetailViewController {
     private func createCustomButton(imageName: String, selector: Selector) -> UIBarButtonItem {
         let button = UIButton(type: .system)
@@ -227,6 +230,16 @@ extension DetailViewController {
             addToWatchListButton.isHidden = false
         case .isNonauthorized:
             addToWatchListButton.isHidden = true
+        }
+    }
+    
+    func setFavoriteButtonSelected(isSelected: Bool) {
+        if isSelected == true {
+            addToWatchListButton.setTitle("Убрать из списка наблюдения", for: .normal)
+            addToWatchListButton.addTarget(self, action: #selector(removeFromFavoritesAction), for: .touchUpInside)
+        } else {
+            addToWatchListButton.setTitle("Добавить в список наблюдения", for: .normal)
+            addToWatchListButton.addTarget(self, action: #selector(addToFavoritesAction), for: .touchUpInside)
         }
     }
 }

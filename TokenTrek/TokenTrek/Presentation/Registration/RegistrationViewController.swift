@@ -14,7 +14,7 @@ protocol RegistrationViewProtocol: AnyObject {
 
 class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     
-    //MARK: - UI
+    // MARK: - UI
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.text = "Адрес электронной почты"
@@ -103,19 +103,30 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
         return stackView
     }()
     
+    private let toMainScreenButton = {
+        let button = UIButton()
+        button.setTitle("На главную", for: .normal)
+        button.backgroundColor = .clear
+        button.setTitleColor(UIColor.gray, for: .normal)
+        button.layer.cornerRadius = 25
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.borderForWhiteButton
+        button.addTarget(self, action: #selector(toMainScreenButtonAction), for: .touchUpInside)
+        return button
+    }()
+    
     var output: RegistrationPresenter!
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        navBarSetup()
         addSubviews()
         setConstraints()
     }
     
-    //MARK: - Private Functions
+    // MARK: - Private Functions
     private func addSubviews() {
         secondaryStackView.addArrangedSubview(alredyRegisterLabel)
         secondaryStackView.addArrangedSubview(signInButton)
@@ -126,6 +137,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
         view.addSubview(passwordLabel)
         view.addSubview(passwordTextField)
         view.addSubview(bottomStackView)
+        view.addSubview(toMainScreenButton)
     }
     
     private func setConstraints() {
@@ -166,6 +178,13 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
             make.leading.equalToSuperview().inset(20)
             make.trailing.equalToSuperview().inset(20)
         }
+        
+        toMainScreenButton.snp.makeConstraints { make in
+            make.top.equalTo(bottomStackView.snp.bottom).offset(20)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(50)
+        }
     }
     
     private func showAlert(alertTitle: String, alertMessage: String) {
@@ -174,35 +193,10 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
         alert.addAction(defaultAction)
         self.present(alert, animated: true)
     }
-    
-    private func createCustomButton(imageName: String, selector: Selector) -> UIBarButtonItem {
-        let button = UIButton(type: .system)
-        button.setImage(
-            UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate),
-            for: .normal
-        )
-        button.tintColor = UIColor.gray
-        button.imageView?.contentMode = .scaleAspectFit
-        button.contentVerticalAlignment = .fill
-        button.contentHorizontalAlignment = .fill
-        button.addTarget(self, action: selector, for: .touchUpInside)
-        
-        let menuBarItem = UIBarButtonItem(customView: button)
-        return menuBarItem
-    }
-    
-    private func navBarSetup() {
-        let backButton = createCustomButton(
-            imageName: "backButtonImage",
-            selector: #selector(backButtonAction)
-        )
-        navigationItem.leftBarButtonItem = backButton
-    }
 }
 
 extension RegistrationViewController {
-    
-    //MARK: - Objc Methods
+    // MARK: - Objc Methods
     @objc func registerPressed() {
         output.signUp(email: emailTextField.text!, password: passwordTextField.text) { result in
             switch result {
@@ -221,10 +215,14 @@ extension RegistrationViewController {
     @objc func signInButtonPressed() {
         output.toSignIn()
     }
+    
+    @objc func toMainScreenButtonAction() {
+        output.showCurrencyList()
+    }
 }
 
 extension RegistrationViewController {
-    //MARK: - Public Methods
+    // MARK: - Public Methods
     func updateSignUpState(_ state: SignUpState) {
         switch state {
         case .succes:

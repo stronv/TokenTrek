@@ -45,8 +45,8 @@ final class CurrencyListPresenter: CurrencyListPresenterProtocol {
     private var currentType: CurrencyListType = .currencyList
     
     private let networkManager: NetworkManager = NetworkManager()
-    private let coreDataManager = CoreDataManager.shared()
-    private let firebaseService = FirebaseService.shared()
+    private let coreDataManager = CoreDataManager.shared
+    private let firebaseService = FirebaseService.shared
     
     private func loadCoins() {
         switch currentType {
@@ -107,13 +107,11 @@ extension CurrencyListPresenter {
         loadCoins()
     }
     
-    func checkIfUidExists() -> Bool {
+    func checkIfUidExists() {
         if let _ = UserDefaults.standard.object(forKey: "uid") as? String {
             view?.checkAuthState(state: .isAuthorized)
-            return true
         } else {
             view?.checkAuthState(state: .isNonauthorized)
-            return false
         }
     }
     

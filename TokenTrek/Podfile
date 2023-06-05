@@ -10,4 +10,5 @@ target 'TokenTrek' do
   pod 'FirebaseFirestore'
   pod 'Firebase/Core'
   pod 'FirebaseDatabase'
+  pod 'SwiftLint'
 end

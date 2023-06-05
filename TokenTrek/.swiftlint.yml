@@ -1,0 +1,33 @@
+warning_threshold: 150
+
+excluded:
+- Pods
+- DerivedData
+- /**/Generated
+
+disabled_rules:
+- trailing_whitespace
+- unused_optional_binding
+- self_in_property_initialization
+- statement_position
+- todo
+- force_unwrapping
+- line_length
+- identifier_name
+- implicitly_unwrapped_optional
+
+force_cast: warning
+force_try: warning
+function_body_length:
+    warning: 60
+
+identifier_name:
+  excluded:
+    - i
+    - id
+    - x
+    - y
+    - z
+    - vc
+    - db
+    

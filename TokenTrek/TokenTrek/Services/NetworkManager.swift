@@ -8,18 +8,18 @@
 import Moya
 
 protocol NetworkManagerProtocol {
-    func fetchCoins(completion: @escaping (Result<[Coin], Error>) -> ())
+    func fetchCoins(completion: @escaping (Result<[Coin], Error>) -> Void)
 }
 
 final class NetworkManager: NetworkManagerProtocol {
     private var provider = MoyaProvider<CoinTarget>()
-    func fetchCoins(completion: @escaping (Result<[Coin], Error>) -> ()) {
+    func fetchCoins(completion: @escaping (Result<[Coin], Error>) -> Void) {
         request(target: .getCoins, completion: completion)
     }
 }
 
 private extension NetworkManager {
-    private func request<T: Decodable>(target: CoinTarget, completion: @escaping (Result<T, Error>) ->()) {
+    private func request<T: Decodable>(target: CoinTarget, completion: @escaping (Result<T, Error>) -> Void) {
         provider.request(target) { result in
             switch result {
             case let .success(response):

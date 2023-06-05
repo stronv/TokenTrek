@@ -810,6 +810,7 @@ PODS:
   - PromisesObjC (2.2.0)
   - SnapKit (5.6.0)
   - SwiftAlgorithms (1.0.0)
+  - SwiftLint (0.52.2)
 
 DEPENDENCIES:
   - Charts
@@ -819,6 +820,7 @@ DEPENDENCIES:
   - FirebaseFirestore
   - Moya
   - SnapKit
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
@@ -846,6 +848,7 @@ SPEC REPOS:
     - PromisesObjC
     - SnapKit
     - SwiftAlgorithms
+    - SwiftLint
 
 SPEC CHECKSUMS:
   abseil: 926fb7a82dc6d2b8e1f2ed7f3a718bce691d1e46
@@ -872,7 +875,8 @@ SPEC CHECKSUMS:
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
+  SwiftLint: 1ac76dac888ca05cb0cf24d0c85887ec1209961d
 
-PODFILE CHECKSUM: 7ce2b70378ea2c8014ea91abff5dffbbef1206c6
+PODFILE CHECKSUM: 0f2ea2adebd8edf8e3ed3414d77436177d61a28d
 
 COCOAPODS: 1.12.0

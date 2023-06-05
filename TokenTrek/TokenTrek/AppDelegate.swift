@@ -25,6 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        CoreDataManager._shared.saveContext()
+        CoreDataManager.shared.saveContext()
     }
 }

@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension SparklineIn7DMO {
 
     @nonobjc class func fetchRequest() -> NSFetchRequest<SparklineIn7DMO> {

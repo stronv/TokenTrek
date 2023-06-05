@@ -14,16 +14,12 @@ class CoreDataManager: NSObject {
         super.init()
     }
 
-    static let _shared = CoreDataManager()
-
-    class func shared() -> CoreDataManager {
-        return _shared
-    }
+    static let shared: CoreDataManager = .init()
 
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "TokenTrek")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
@@ -48,7 +44,7 @@ class CoreDataManager: NSObject {
         }
     }
 
-    func prepare(dataForSaving: [Coin]){
+    func prepare(dataForSaving: [Coin]) {
         let fetchRequest: NSFetchRequest<CoinMO> = CoinMO.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false
         do {
@@ -180,10 +176,10 @@ class CoreDataManager: NSObject {
             guard let coinEntity = coins.first else { return nil }
             
             let coin = Coin(
-                id: coinEntity.id ?? "",
-                symbol: coinEntity.symbol ?? "",
-                name: coinEntity.name ?? "",
-                image: coinEntity.image ?? "",
+                id: coinEntity.id,
+                symbol: coinEntity.symbol,
+                name: coinEntity.name,
+                image: coinEntity.image,
                 currentPrice: coinEntity.currentPrice,
                 marketCapRank: Int(coinEntity.marketCapRank),
                 marketCap: coinEntity.marketCap,

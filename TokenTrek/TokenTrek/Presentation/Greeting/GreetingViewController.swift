@@ -14,7 +14,7 @@ protocol GreetingViewProtocol: AnyObject {
 }
 
 class GreetingViewController: UIViewController, GreetingViewProtocol {
-    //MARK: - UI
+    // MARK: - UI
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "logo")
@@ -96,10 +96,10 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
         return stackView
     }()
     
-    //MARK: - MVP Properties
+    // MARK: - MVP Properties
     var output: GreetingPresenter?
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -107,7 +107,7 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
         setConstraints()
     }
     
-    //MARK: - Objc Methods
+    // MARK: - Objc Methods
     @objc func createAccountButtonAction() {
         output?.toCreateAccount()
     }
@@ -120,7 +120,7 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
         output?.toSignIn()
     }
     
-    //MARK: - Private Functions
+    // MARK: - Private Functions
     private func addSubviews() {
         greetingStackView.addArrangedSubview(logoImageView)
         greetingStackView.addArrangedSubview(greetingLabel)
@@ -135,14 +135,14 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
     
     private func setConstraints() {
         greetingStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(Constants.topInsetForStackVIew)
-            make.leading.equalToSuperview().inset(Constants.leftInset)
-            make.trailing.equalToSuperview().inset(Constants.rightInset)
+            make.top.equalToSuperview().inset(209)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
         }
         
         mainButtonsStackView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(Constants.leftInset)
-            make.trailing.equalToSuperview().inset(Constants.rightInset)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(45)
         }
         
@@ -152,21 +152,20 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
         }
         
         createAccountButton.snp.makeConstraints { make in
-            make.height.equalTo(Constants.buttonHeight)
+            make.height.equalTo(50)
             make.leading.equalToSuperview()
             make.trailing.equalTo(signInButton.snp.trailing).inset(110)
         }
         
         signInButton.snp.makeConstraints { make in
-            make.height.equalTo(Constants.buttonHeight)
+            make.height.equalTo(50)
             make.trailing.equalToSuperview()
         }
         
         toMainScreenButton.snp.makeConstraints { make in
-            make.height.equalTo(Constants.buttonHeight)
-            make.leading.equalToSuperview().inset(Constants.leftInsetForButton)
-            make.trailing.equalToSuperview().inset(Constants.rightInsetForButton)
+            make.height.equalTo(50)
+            make.leading.equalToSuperview().inset(80)
+            make.trailing.equalToSuperview().inset(80)
         }
     }
 }
-

@@ -107,7 +107,7 @@ class CurrencyTableViewCell: UITableViewCell {
         setConstraints()
      }
     
-    //MARK: - Private Methods
+    // MARK: - Private Methods
     private func priceChangeButtonConfig(state: ButtonStateView) {
         switch state {
         case .red:
@@ -159,7 +159,7 @@ class CurrencyTableViewCell: UITableViewCell {
     }
 }
 
-//MARK: - Public methods
+// MARK: - Public methods
 extension CurrencyTableViewCell {
     func configure(coin: Coin) {
         marketCapRankLabel.text = "\(coin.marketCapRank)"
@@ -170,9 +170,9 @@ extension CurrencyTableViewCell {
         priceChangeLabel.text = coin.priceChangePercentage24H?.asPercentString()
         
         if coin.priceChangePercentage24H ?? 0 >= 0 {
-            priceChangeButtonConfig(state: .red)
-        } else if coin.priceChangePercentage24H ?? 0 <= 0 {
             priceChangeButtonConfig(state: .green)
+        } else if coin.priceChangePercentage24H ?? 0 <= 0 {
+            priceChangeButtonConfig(state: .red)
         } else {
             priceChangeButtonConfig(state: .white)
         }

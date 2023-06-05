@@ -28,7 +28,7 @@ final class SearchViewPresenter: SearchViewPresenterProtocol {
         self.view = view
     }
     
-    private let coreDataManager = CoreDataManager.shared()
+    private let coreDataManager = CoreDataManager.shared
     
     private func loadCoins() {
         coins = coreDataManager.fetchCoinsFromCoreData()

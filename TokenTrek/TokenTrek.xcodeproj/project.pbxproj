@@ -36,7 +36,6 @@
 		7CAEA2BD29FB06C600B8AA59 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAEA2BC29FB06C600B8AA59 /* NetworkManager.swift */; };
 		7CCED3092A0D223100577ED9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCED3082A0D223100577ED9 /* SearchViewController.swift */; };
 		7CCED30D2A0D2EDE00577ED9 /* CustomTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCED30C2A0D2EDE00577ED9 /* CustomTitleView.swift */; };
-		7CCED3102A0D963900577ED9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCED30F2A0D963900577ED9 /* Constants.swift */; };
 		7CD4070A2A03FE11003A5756 /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD407092A03FE11003A5756 /* CustomMarkerView.swift */; };
 		7CD41DF32A1A44C200207C78 /* SearchViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD41DF22A1A44C200207C78 /* SearchViewPresenter.swift */; };
 		7CD41DF52A1A464F00207C78 /* SearchViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CD41DF42A1A464F00207C78 /* SearchViewCoordinator.swift */; };
@@ -90,7 +89,6 @@
 		7CAEA2BC29FB06C600B8AA59 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		7CCED3082A0D223100577ED9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		7CCED30C2A0D2EDE00577ED9 /* CustomTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitleView.swift; sourceTree = "<group>"; };
-		7CCED30F2A0D963900577ED9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7CD407092A03FE11003A5756 /* CustomMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
 		7CD41DF22A1A44C200207C78 /* SearchViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewPresenter.swift; sourceTree = "<group>"; };
 		7CD41DF42A1A464F00207C78 /* SearchViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCoordinator.swift; sourceTree = "<group>"; };
@@ -363,7 +361,6 @@
 			children = (
 				9A3E7E4029CCFC1A004B60E8 /* Fonts.swift */,
 				63C74D4229EC85910040E52C /* Extensions */,
-				7CCED30F2A0D963900577ED9 /* Constants.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -399,6 +396,7 @@
 				9A191BE729C66A5700E88891 /* Frameworks */,
 				9A191BE829C66A5700E88891 /* Resources */,
 				B1602523132B489FC0608997 /* [CP] Embed Pods Frameworks */,
+				7CA8FE2C2A2E935D00223D1E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -480,6 +478,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7CA8FE2C2A2E935D00223D1E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 		B1602523132B489FC0608997 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -520,7 +535,6 @@
 				7CFDB4AD2A274FBA0090826B /* Validators.swift in Sources */,
 				639998D629E841CF00819493 /* CurrencyListPresenter.swift in Sources */,
 				7C4FFA8C29F6A9C200BCD10F /* DetailViewController.swift in Sources */,
-				7CCED3102A0D963900577ED9 /* Constants.swift in Sources */,
 				7CF379F42A04602B00BA2110 /* CurrencyListState.swift in Sources */,
 				9A3E7E4129CCFC1A004B60E8 /* Fonts.swift in Sources */,
 				6390D3D629E35FB700239555 /* CurrencyTableViewCell.swift in Sources */,

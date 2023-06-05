@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension CoinMO {
     
     @nonobjc class func fetchRequest() -> NSFetchRequest<CoinMO> {

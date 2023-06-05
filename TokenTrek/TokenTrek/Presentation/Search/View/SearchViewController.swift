@@ -14,7 +14,7 @@ protocol SearchViewProtocol: AnyObject {
 
 class SearchViewController: UIViewController, SearchViewProtocol {
     
-    //MARK: - UI
+    // MARK: - UI
     private let searchTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Искать монеты"
@@ -33,10 +33,10 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         return tableView
     }()
     
-    //MARK: - MVP properties
+    // MARK: - MVP properties
     var output: SearchViewPresenterProtocol!
     
-    //MARK: - Life cycle
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,7 +50,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         searchTextField.delegate = self
     }
     
-    //MARK: - Private methods
+    // MARK: - Private methods
     private func setup() {
         view.addSubview(searchTextField)
         searchTextField.snp.makeConstraints { make in
@@ -101,13 +101,13 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         navigationItem.leftBarButtonItem = backButton
     }
     
-    //MARK: - Objc Methods
+    // MARK: - Objc Methods
     @objc func backButtonAction() {
         output.showCurrencyList()
     }
 }
 
-//MARK: - UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate
+// MARK: - UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     func tableView(
         _ tableView: UITableView,
@@ -140,8 +140,6 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate, UITe
         output.showCoinDetail(indexPath: indexPath)
     }
     
-    
-    
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         searchTextField.resignFirstResponder()
         searchTextField.text = ""
@@ -154,7 +152,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate, UITe
         if let searchText = textField.text?.lowercased(), !searchText.isEmpty {
             self.output.searchedCoins.removeAll()
             for coin in output.coins {
-                if coin.symbol.lowercased().hasPrefix(searchText) || coin.name.lowercased().hasPrefix(searchText)  {
+                if coin.symbol.lowercased().hasPrefix(searchText) || coin.name.lowercased().hasPrefix(searchText) {
                     self.output.searchedCoins.append(coin)
                 }
             }
@@ -167,7 +165,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate, UITe
 
 }
 
-//MARK: - Public Methods
+// MARK: - Public Methods
 extension SearchViewController {
     func reloadData() {
         tableView.reloadData()

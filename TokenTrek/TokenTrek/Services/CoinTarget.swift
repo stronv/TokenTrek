@@ -36,7 +36,7 @@ extension CoinTarget: TargetType {
             "locale": "en"
         ], encoding: URLEncoding.default)
     }
-    var headers: [String : String]? {
+    var headers: [String: String]? {
         return ["Content-type": "application/json"]
     }
 }

@@ -13,7 +13,7 @@ protocol GreetingViewOutput {
     func toSignIn()
 }
 
-class GreetingPresenter: GreetingViewOutput {
+final class GreetingPresenter: GreetingViewOutput {
     private let moduleOutput: GreetingCoordinatorProtocol
     private weak var view: GreetingViewProtocol?
     
@@ -21,7 +21,10 @@ class GreetingPresenter: GreetingViewOutput {
         self.moduleOutput = moduleOutput
         self.view = view
     }
-    
+}
+
+// MARK: - Public Methods
+extension GreetingPresenter {
     func toCreateAccount() {
         moduleOutput.toCreateAccount()
     }

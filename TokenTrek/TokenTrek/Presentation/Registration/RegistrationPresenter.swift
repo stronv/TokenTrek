@@ -23,8 +23,11 @@ final class RegistrationPresenter: RegistrationPresenterProtocol {
         self.view = view
     }
     
-    private let firebaseService = FirebaseService.shared()
-    
+    private let firebaseService = FirebaseService.shared
+}
+
+// MARK: - Public Methods
+extension RegistrationPresenter {
     func signUp(email: String?, password: String?, completion: @escaping (SignUpResult) -> Void) {
         
         guard Validators.isFilled(email: email, password: password) else {
@@ -66,5 +69,9 @@ final class RegistrationPresenter: RegistrationPresenterProtocol {
     
     func toSignIn() {
         moduleOutput.toSigIn()
+    }
+    
+    func showCurrencyList() {
+        moduleOutput.toCurrencyList()
     }
 }

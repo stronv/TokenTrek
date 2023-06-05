@@ -14,7 +14,7 @@ protocol RefreshDelegate: AnyObject {
 class ErrorView: UIView {
     
     weak var delegate: RefreshDelegate?
-    //MARK: - UI
+    // MARK: - UI
     let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -72,7 +72,7 @@ class ErrorView: UIView {
         setup()
     }
         
-    //MARK: - Private metohds
+    // MARK: - Private metohds
     private func setup() {
         stackView.addArrangedSubview(errorImageView)
         stackView.addArrangedSubview(textLabel)
@@ -81,9 +81,9 @@ class ErrorView: UIView {
         addSubview(stackView)
         
         stackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(Constants.topInsetForStackVIew)
-            make.leading.equalToSuperview().inset(Constants.leftInset)
-            make.trailing.equalToSuperview().inset(Constants.rightInset)
+            make.top.equalToSuperview().inset(209)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
         }
     }
 }
