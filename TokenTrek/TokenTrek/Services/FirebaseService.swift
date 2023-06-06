@@ -48,8 +48,6 @@ final class FirebaseService: FirebaseServiceProtocol {
     func signIn(email: String, password: String, completion: @escaping (SignInResult) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if error == nil {
-                print("Sign In Succesful")
-                print(result?.user.uid ?? "")
                 UserDefaults.standard.set(result?.user.uid, forKey: "uid")
                 completion(.succes)
             } else {

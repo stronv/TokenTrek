@@ -46,6 +46,7 @@
 		7CEFBCC02A29224A0058FD42 /* DetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEFBCBF2A29224A0058FD42 /* DetailViewPresenter.swift */; };
 		7CF379F42A04602B00BA2110 /* CurrencyListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF379F32A04602B00BA2110 /* CurrencyListState.swift */; };
 		7CF379F72A04626C00BA2110 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF379F62A04626C00BA2110 /* ErrorView.swift */; };
+		7CF419472A2EA6C800F89D60 /* PercentChangeButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF419462A2EA6C800F89D60 /* PercentChangeButtonState.swift */; };
 		7CFDB4AA2A274D110090826B /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFDB4A92A274D110090826B /* FirebaseService.swift */; };
 		7CFDB4AD2A274FBA0090826B /* Validators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFDB4AC2A274FBA0090826B /* Validators.swift */; };
 		9A191BEE29C66A5700E88891 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A191BED29C66A5700E88891 /* AppDelegate.swift */; };
@@ -99,6 +100,7 @@
 		7CEFBCBF2A29224A0058FD42 /* DetailViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewPresenter.swift; sourceTree = "<group>"; };
 		7CF379F32A04602B00BA2110 /* CurrencyListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListState.swift; sourceTree = "<group>"; };
 		7CF379F62A04626C00BA2110 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		7CF419462A2EA6C800F89D60 /* PercentChangeButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentChangeButtonState.swift; sourceTree = "<group>"; };
 		7CFDB4A92A274D110090826B /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		7CFDB4AC2A274FBA0090826B /* Validators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validators.swift; sourceTree = "<group>"; };
 		8D34D8C47A1B9CE1AC49DA69 /* Pods-TokenTrek.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TokenTrek.release.xcconfig"; path = "Target Support Files/Pods-TokenTrek/Pods-TokenTrek.release.xcconfig"; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				7C22592C2A278721009714E5 /* SignUpState.swift */,
 				7C22592A2A27836A009714E5 /* SignUpResult.swift */,
 				7CE2164D2A27DAF80040ED90 /* SignInResult.swift */,
+				7CF419462A2EA6C800F89D60 /* PercentChangeButtonState.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				7C9ADC252A1B7E6200A42515 /* SparklineIn7DMO+CoreDataClass.swift in Sources */,
 				63C74D4629EC8DE00040E52C /* Double.swift in Sources */,
 				7C9ADC232A1B7E6200A42515 /* CoinMO+CoreDataClass.swift in Sources */,
+				7CF419472A2EA6C800F89D60 /* PercentChangeButtonState.swift in Sources */,
 				7CEFBCC02A29224A0058FD42 /* DetailViewPresenter.swift in Sources */,
 				63C74D3F29EC29D20040E52C /* Coin.swift in Sources */,
 			);

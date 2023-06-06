@@ -12,10 +12,14 @@ enum AuthStatus {
     case isNonauthorized
 }
 
+enum CoinIsFavorite {
+    case addCoinToFavorite
+    case removeCoinFromFavorite
+}
+
 protocol DetailViewPresenterProtocol {
-    func addCoinToFavorite()
     func viewDidLoadEvent()
-    func removeCoinFromFavorite()
+    func watchListOperation(isFavorite: CoinIsFavorite)
 }
 
 final class DetailViewPresenter: DetailViewPresenterProtocol {
@@ -35,7 +39,6 @@ final class DetailViewPresenter: DetailViewPresenterProtocol {
     private func getFavoriteCoins() {
         firebaseService.getFavoriteCoins(comletion: { [weak self] favoriteCoins in
             self?.favoriteCoins = favoriteCoins
-            print("test")
         })
     }
     
@@ -50,35 +53,42 @@ final class DetailViewPresenter: DetailViewPresenterProtocol {
     private func updateFavoriteButton() {
         if favoriteCoins.contains(coin.id) {
             view?.setFavoriteButtonSelected(isSelected: true)
-            print("should be true")
         } else {
             view?.setFavoriteButtonSelected(isSelected: false)
-            print("should be false")
         }
     }
-}
-
-// MARK: - Public methods
-extension DetailViewPresenter {
-    func addCoinToFavorite() {
+    
+    private func addCoinToFavorite() {
         if !favoriteCoins.contains(coin.id) {
             favoriteCoins.append(coin.id)
             firebaseService.updateFavoriteCoins(favoriteCoins)
         }
     }
     
-    func removeCoinFromFavorite() {
+    private func removeCoinFromFavorite() {
         if let index = favoriteCoins.firstIndex(of: coin.id) {
             favoriteCoins.remove(at: index)
             firebaseService.updateFavoriteCoins(favoriteCoins)
         }
     }
+}
 
+// MARK: - Public methods
+extension DetailViewPresenter {
     func viewDidLoadEvent() {
         checkIfUidExists()
         getFavoriteCoins()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
             self.updateFavoriteButton()
+        }
+    }
+    
+    func watchListOperation(isFavorite: CoinIsFavorite) {
+        switch isFavorite {
+        case .removeCoinFromFavorite:
+            removeCoinFromFavorite()
+        case .addCoinToFavorite:
+            addCoinToFavorite()
         }
     }
 }

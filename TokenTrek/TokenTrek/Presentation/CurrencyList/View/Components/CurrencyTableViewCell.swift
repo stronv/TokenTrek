@@ -86,7 +86,7 @@ class CurrencyTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    private enum ButtonStateView {
+    enum ButtonStateView {
         case red
         case green
         case white
@@ -108,7 +108,7 @@ class CurrencyTableViewCell: UITableViewCell {
      }
     
     // MARK: - Private Methods
-    private func priceChangeButtonConfig(state: ButtonStateView) {
+    private func priceChangeButtonConfig(state: PercentChangeButtonState) {
         switch state {
         case .red:
             priceChangeLabel.backgroundColor = UIColor.redBackground

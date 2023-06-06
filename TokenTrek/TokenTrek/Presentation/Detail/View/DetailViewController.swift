@@ -58,6 +58,7 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         button.layer.cornerRadius = 25
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor.blueButton
+        button.addTarget(self, action: #selector(addToFavoritesAction), for: .touchUpInside)
         return button
     }()
     
@@ -82,22 +83,6 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
     }
     
     // MARK: - Private methods
-    func configure(coin: Coin) {
-        nameLabel.text = coin.name
-        priceLabel.text = coin.currentPrice.asCurrencyWith6Decimals()
-        priceChangeLabel.text = coin.priceChangePercentage24H?.asPercentString()
-        // TODO: Move it somewhere?
-        if coin.priceChangePercentage24H ?? 0 >= 0 {
-            priceChangeLabel.backgroundColor = UIColor.greenBackground
-            priceChangeLabel.textColor = UIColor.green
-        } else {
-            priceChangeLabel.backgroundColor = UIColor.redBackground
-            priceChangeLabel.textColor = UIColor.red
-        }
-        setData(coin: coin)
-        navBarSetup(coin: coin)
-    }
-    
     private func addSubviews() {
         nameAndPriceStackView.addArrangedSubview(nameLabel)
         nameAndPriceStackView.addArrangedSubview(priceLabel)
@@ -108,17 +93,23 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         view.addSubview(addToWatchListButton)
     }
     
+    private struct Constraints {
+        static let leading: CGFloat = 20
+        static let trailing: CGFloat = 20
+        static let top: CGFloat = 43
+    }
+    
     private func makeConstraints() {
         view.backgroundColor = .white
         
         nameAndPriceStackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(43)
-            make.leading.equalToSuperview().inset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(Constraints.top)
+            make.leading.equalToSuperview().inset(Constraints.leading)
         }
         
         priceChangeLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(43)
-            make.trailing.equalToSuperview().inset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(Constraints.top)
+            make.trailing.equalToSuperview().inset(Constraints.trailing)
             make.width.equalTo(73)
             make.height.equalTo(32)
         }
@@ -134,8 +125,22 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         addToWatchListButton.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(50)
             make.height.equalTo(50)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
+            make.leading.equalToSuperview().inset(Constraints.leading)
+            make.trailing.equalToSuperview().inset(Constraints.trailing)
+        }
+    }
+    
+    private func priceChangeButtonConfig(state: PercentChangeButtonState) {
+        switch state {
+        case .red:
+            priceChangeLabel.backgroundColor = UIColor.redBackground
+            priceChangeLabel.textColor = UIColor.red
+        case .green:
+            priceChangeLabel.backgroundColor = UIColor.greenBackground
+            priceChangeLabel.textColor = UIColor.green
+        case .white:
+            priceChangeLabel.backgroundColor = UIColor.clear
+            priceChangeLabel.textColor = UIColor.clear
         }
     }
     
@@ -169,12 +174,18 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func addToFavoritesAction() {
-        output.addCoinToFavorite()
-    }
+    private var addToFavoritesButtonToggled: Bool = false
     
-    @objc func removeFromFavoritesAction() {
-        output.removeCoinFromFavorite()
+    @objc func addToFavoritesAction() {
+        if addToFavoritesButtonToggled == false {
+            addToWatchListButton.setTitle("Добавить в список наблюдения", for: .normal)
+            addToFavoritesButtonToggled = true
+            output.watchListOperation(isFavorite: .removeCoinFromFavorite)
+        } else {
+            addToWatchListButton.setTitle("Убрать из списка наблюдения", for: .normal)
+            addToFavoritesButtonToggled = false
+            output.watchListOperation(isFavorite: .addCoinToFavorite)
+        }
     }
 }
 
@@ -188,7 +199,6 @@ extension DetailViewController: ChartViewDelegate {
         priceLabel.text = entry.y.asCurrencyWith6Decimals()
     }
 }
-
 // MARK: - Navigation Bar Customize
 extension DetailViewController {
     private func createCustomButton(imageName: String, selector: Selector) -> UIBarButtonItem {
@@ -223,7 +233,23 @@ extension DetailViewController {
     }
 }
 
+// MARK: - Public methods
 extension DetailViewController {
+    func configure(coin: Coin) {
+        nameLabel.text = coin.name
+        priceLabel.text = coin.currentPrice.asCurrencyWith6Decimals()
+        priceChangeLabel.text = coin.priceChangePercentage24H?.asPercentString()
+        if coin.priceChangePercentage24H ?? 0 >= 0 {
+            priceChangeButtonConfig(state: .green)
+        } else if coin.priceChangePercentage24H ?? 0 <= 0 {
+            priceChangeButtonConfig(state: .red)
+        } else {
+            priceChangeButtonConfig(state: .white)
+        }
+        setData(coin: coin)
+        navBarSetup(coin: coin)
+    }
+    
     func updateViewState(state: AuthStatus) {
         switch state {
         case .isAuthorized:
@@ -236,10 +262,10 @@ extension DetailViewController {
     func setFavoriteButtonSelected(isSelected: Bool) {
         if isSelected == true {
             addToWatchListButton.setTitle("Убрать из списка наблюдения", for: .normal)
-            addToWatchListButton.addTarget(self, action: #selector(removeFromFavoritesAction), for: .touchUpInside)
+            addToFavoritesButtonToggled = false
         } else {
             addToWatchListButton.setTitle("Добавить в список наблюдения", for: .normal)
-            addToWatchListButton.addTarget(self, action: #selector(addToFavoritesAction), for: .touchUpInside)
+            addToFavoritesButtonToggled = true
         }
     }
 }
