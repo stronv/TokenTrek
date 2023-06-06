@@ -16,7 +16,7 @@ class CurrencyTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         label.textAlignment = .center
-        label.textColor = .black
+        label.textColor = UIColor(named: "mainTextFontColor")
         return label
     }()
     
@@ -28,21 +28,21 @@ class CurrencyTableViewCell: UITableViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
-        label.textColor = .black
+        label.textColor = UIColor(named: "mainTextFontColor")
         return label
     }()
     
     let priceLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
-        label.textColor = .black
+        label.textColor = UIColor(named: "mainTextFontColor")
         return label
     }()
     
     let marketCapLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 10)
-        label.textColor = .systemGray
+        label.textColor = UIColor(named: "secondaryTextFontColor")
         return label
     }()
     
@@ -123,7 +123,6 @@ class CurrencyTableViewCell: UITableViewCell {
     }
     
     private func addSubviews() {
-        
         stackView.addArrangedSubview(marcketCapAndLogoStackView)
         stackView.addArrangedSubview(tikerAndVolumeStackView)
         stackView.addArrangedSubview(priceAndChartStackView)

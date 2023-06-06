@@ -27,7 +27,7 @@ class CustomTitleView: UIView {
         let label = UILabel()
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 11)
         label.text = coin.symbol.uppercased()
-        label.textColor = UIColor.gray
+        label.textColor = UIColor(named: "mainTextFontColor")
         return label
     }()
     
@@ -36,7 +36,7 @@ class CustomTitleView: UIView {
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 10)
         label.textAlignment = .center
         label.text = "#\(coin.marketCap)"
-        label.textColor = UIColor.gray2
+        label.textColor = UIColor(named: "secondaryTextFontColor")
         return label
     }()
     

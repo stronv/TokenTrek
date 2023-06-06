@@ -19,7 +19,7 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 10)
-        label.textColor = UIColor.gray
+        label.textColor = UIColor(named: "mainTextFontColor")
         return label
     }()
     
@@ -40,7 +40,7 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
     private let priceLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
-        label.textColor = .black
+        label.textColor = UIColor(named: "mainTextFontColor")
         return label
     }()
     
@@ -91,6 +91,7 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         view.addSubview(priceChangeLabel)
         view.addSubview(lineChartView)
         view.addSubview(addToWatchListButton)
+        view.backgroundColor = UIColor(named: "backgroundColor")
     }
     
     private struct Constraints {
@@ -100,8 +101,6 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
     }
     
     private func makeConstraints() {
-        view.backgroundColor = .white
-        
         nameAndPriceStackView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(Constraints.top)
             make.leading.equalToSuperview().inset(Constraints.leading)
@@ -207,7 +206,7 @@ extension DetailViewController {
             UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate),
             for: .normal
         )
-        button.tintColor = UIColor.gray
+        button.tintColor = UIColor(named: "mainTextFontColor")
         button.imageView?.contentMode = .scaleAspectFit
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill

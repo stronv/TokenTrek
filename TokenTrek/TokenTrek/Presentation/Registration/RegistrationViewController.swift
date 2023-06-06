@@ -19,6 +19,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
         let label = UILabel()
         label.text = "email_label".localized
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
+        label.textColor = UIColor(named: "mainTextFontColor")
         label.textAlignment = .left
         return label
     }()
@@ -27,6 +28,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
         let label = UILabel()
         label.text = "password_label".localized
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
+        label.textColor = UIColor(named: "mainTextFontColor")
         label.textAlignment = .left
         return label
     }()
@@ -34,7 +36,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     private let emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "email_text_field_placeholder".localized
-        textField.backgroundColor = .white
+        textField.backgroundColor = UIColor(named: "placeholderColor")
         textField.layer.cornerRadius = 25
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.height))
         textField.leftViewMode = .always
@@ -48,8 +50,8 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     private let passwordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "password_text_field_placeholder".localized
+        textField.backgroundColor = UIColor(named: "placeholderColor")
         textField.isSecureTextEntry = true
-        textField.backgroundColor = .white
         textField.layer.cornerRadius = 25
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.height))
         textField.leftViewMode = .always
@@ -74,7 +76,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
         let label = UILabel()
         label.text = "alredy_register_label".localized
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 18)
-        label.textColor = UIColor.gray
+        label.textColor = UIColor(named: "secondaryTextFontColor")
         label.textAlignment = .center
         return label
     }()
@@ -82,7 +84,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     private let signInButton: UIButton = {
         let button = UIButton()
         button.setTitle("sign_in_button".localized, for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(UIColor(named: "mainTextFontColor"), for: .normal)
         button.addTarget(self, action: #selector(signInButtonPressed), for: .touchUpInside)
         return button
     }()
@@ -107,7 +109,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
         let button = UIButton()
         button.setTitle("to_main_screen_button".localized, for: .normal)
         button.backgroundColor = .clear
-        button.setTitleColor(UIColor.gray, for: .normal)
+        button.setTitleColor(UIColor(named: "transparentButtonColor"), for: .normal)
         button.layer.cornerRadius = 25
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.borderForWhiteButton
@@ -120,7 +122,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "backgroundColor")
         
         addSubviews()
         setConstraints()

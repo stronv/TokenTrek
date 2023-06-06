@@ -19,6 +19,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
     // MARK: - UI
     private let tableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = UIColor(named: "backgroundColor")
         return tableView
     }()
     
@@ -39,7 +40,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         button.setTitle("#", for: .normal)
         button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         button.backgroundColor = .clear
-        button.setTitleColor(UIColor.gray, for: .normal)
+        button.setTitleColor(UIColor(named: "secondaryTextFontColor"), for: .normal)
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         button.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         button.addTarget(self, action: #selector(marketCapRankButtonAction), for: .touchUpInside)
@@ -51,7 +52,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         button.setTitle("market cap", for: .normal)
         button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         button.backgroundColor = .clear
-        button.setTitleColor(UIColor.gray, for: .normal)
+        button.setTitleColor(UIColor(named: "secondaryTextFontColor"), for: .normal)
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         button.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         button.addTarget(self, action: #selector(marketCapButtonAction), for: .touchUpInside)
@@ -63,7 +64,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         button.setTitle("price (USD)", for: .normal)
         button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         button.backgroundColor = .clear
-        button.setTitleColor(UIColor.gray, for: .normal)
+        button.setTitleColor(UIColor(named: "secondaryTextFontColor"), for: .normal)
         button.setContentHuggingPriority(.defaultLow, for: .horizontal)
         button.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         button.addTarget(self, action: #selector(priceButtonAction), for: .touchUpInside)
@@ -75,7 +76,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         button.setTitle("24h.%", for: .normal)
         button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         button.backgroundColor = .clear
-        button.setTitleColor(UIColor.gray, for: .normal)
+        button.setTitleColor(UIColor(named: "secondaryTextFontColor"), for: .normal)
         button.addTarget(self, action: #selector(priceChangePercentageButtonAction), for: .touchUpInside)
         return button
     }()
@@ -92,7 +93,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         button.setTitle("currency_list_button".localized, for: .normal)
         button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         button.backgroundColor = .clear
-        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor(named: "mainTextFontColor"), for: .normal)
         button.addTarget(self, action: #selector(currencyListButtonAction), for: .touchUpInside)
         return button
     }()
@@ -102,7 +103,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         button.setTitle("watch_list_button".localized, for: .normal)
         button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         button.backgroundColor = .clear
-        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitleColor(UIColor(named: "mainTextFontColor"), for: .normal)
         button.addTarget(self, action: #selector(watchListButtonAction), for: .touchUpInside)
         return button
     }()
@@ -138,7 +139,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
     }
     
     private func setConstraints() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "backgroundColor")
         
         filterButtonsStackView.snp.makeConstraints { make in
             make.top.equalTo(currencyListButton.snp.bottom)
@@ -190,12 +191,12 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
     
     @objc func marketCapRankButtonAction() {
         if marketCapRankButtonIsToggled == false {
-            marketCapRankButton.setTitleColor(UIColor.blackButton, for: .normal)
+            marketCapRankButton.setTitleColor(UIColor(named: "secondaryTextFontColor"), for: .normal)
             output.sortCoins(sort: .marketCapReversed)
             marketCapRankButtonIsToggled = true
             tableView.reloadData()
         } else {
-            marketCapRankButton.setTitleColor(UIColor.gray, for: .normal)
+            marketCapRankButton.setTitleColor(UIColor.systemBlue, for: .normal)
             output.sortCoins(sort: .marketCap)
             marketCapRankButtonIsToggled = false
             tableView.reloadData()
@@ -206,12 +207,12 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
     
     @objc func marketCapButtonAction() {
         if marketCapButtonIsToggled == false {
-            marketCapButton.setTitleColor(UIColor.blackButton, for: .normal)
+            marketCapButton.setTitleColor(UIColor(named: "secondaryTextFontColor"), for: .normal)
             output.sortCoins(sort: .marketCapReversed)
             marketCapButtonIsToggled = true
             tableView.reloadData()
         } else {
-            marketCapButton.setTitleColor(UIColor.gray, for: .normal)
+            marketCapButton.setTitleColor(UIColor.systemBlue, for: .normal)
             output.sortCoins(sort: .marketCap)
             marketCapButtonIsToggled = false
             tableView.reloadData()
@@ -222,12 +223,12 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
     
     @objc func priceButtonAction() {
         if priceButtonIsToggled == false {
-            priceButton.setTitleColor(UIColor.blackButton, for: .normal)
+            priceButton.setTitleColor(UIColor(named: "secondaryTextFontColor"), for: .normal)
             output.sortCoins(sort: .priceReversed)
             priceButtonIsToggled = true
             tableView.reloadData()
         } else {
-            priceButton.setTitleColor(UIColor.gray, for: .normal)
+            priceButton.setTitleColor(UIColor.systemBlue, for: .normal)
             output.sortCoins(sort: .price)
             priceButtonIsToggled = false
             tableView.reloadData()
@@ -238,12 +239,12 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
     
     @objc func priceChangePercentageButtonAction() {
         if precentChangeIsToggled == false {
-            priceChangePercentageButton.setTitleColor(UIColor.blackButton, for: .normal)
+            priceChangePercentageButton.setTitleColor(UIColor(named: "secondaryTextFontColor"), for: .normal)
             output.sortCoins(sort: .changeInPercentReversed)
             precentChangeIsToggled = true
             tableView.reloadData()
         } else {
-            priceChangePercentageButton.setTitleColor(UIColor.gray, for: .normal)
+            priceChangePercentageButton.setTitleColor(UIColor.systemBlue, for: .normal)
             output.sortCoins(sort: .changeInPercent)
             precentChangeIsToggled = false
             tableView.reloadData()
@@ -291,6 +292,7 @@ extension CurrencyListViewController: UITableViewDataSource, UITableViewDelegate
         else {
             fatalError("Couldn't register cell")
         }
+        cell.backgroundColor = .clear
         let moneta = output.coins[indexPath.row]
         cell.configure(coin: moneta)
         return cell
@@ -348,6 +350,7 @@ extension CurrencyListViewController {
         
         let titleImage = UIImageView()
         titleImage.image = UIImage(named: image)
+        titleImage.tintColor = UIColor(named: "mainTextFontColor")
         view.addSubview(titleImage)
         
         titleImage.snp.makeConstraints { make in
@@ -365,7 +368,7 @@ extension CurrencyListViewController {
             UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate),
             for: .normal
         )
-        button.tintColor = UIColor.gray
+        button.tintColor = UIColor(named: "mainTextFontColor")
         button.imageView?.contentMode = .scaleAspectFit
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
@@ -377,6 +380,7 @@ extension CurrencyListViewController {
     
     private func navBarSetup() {
         let customTitleView = createCustomTitleView(image: "textLogo")
+        customTitleView.tintColor = UIColor(named: "mainTextFontColor")
         let searchRightButton = createCustomButton(imageName: "searchImage", selector: #selector(searchRightButtonAction))
         let profileLeftButton = createCustomButton(imageName: "profileLogo", selector: #selector(signInButtonAction))
         navigationItem.leftBarButtonItem = profileLeftButton

@@ -18,6 +18,7 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "logo")
+        imageView.tintColor = UIColor(named: "mainTextFontColor")
         return imageView
     }()
     
@@ -25,6 +26,7 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
         let label = UILabel()
         label.text = "greeting_label".localized
         label.font = UIFont(name: Fonts.ubuntuBold, size: 40)
+        label.textColor = UIColor(named: "mainTextFontColor")
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -34,7 +36,7 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
         let label = UILabel()
         label.text = "description_label".localized
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 16)
-        label.textColor = UIColor.gray
+        label.textColor = UIColor(named: "secondaryTextFontColor")
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -64,7 +66,7 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
         let button = UIButton()
         button.setTitle("to_main_screen_button".localized, for: .normal)
         button.backgroundColor = .clear
-        button.setTitleColor(UIColor.gray, for: .normal)
+        button.setTitleColor(UIColor(named: "transparentButtonColor"), for: .normal)
         button.layer.cornerRadius = 25
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.borderForWhiteButton
@@ -102,7 +104,7 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "backgroundColor")
         addSubviews()
         setConstraints()
     }

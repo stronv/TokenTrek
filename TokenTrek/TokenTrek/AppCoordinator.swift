@@ -13,7 +13,7 @@ class AppCoordinator {
     
     func goToGreetingPage() {
         window.makeKeyAndVisible()
-        window.backgroundColor = .white
+        window.backgroundColor = .systemBackground
         let coordinator = GreetingCoordinator()
         coordinator.appCoordinator = self
         setRootViewController(coordinator.start(), duration: 0.3)

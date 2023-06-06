@@ -26,6 +26,7 @@ class ErrorView: UIView {
     private let errorImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "errorImage")
+        imageView.tintColor = UIColor(named: "mainTextFontColor")
         return imageView
     }()
 
@@ -33,6 +34,7 @@ class ErrorView: UIView {
         let label = UILabel()
         label.text = "error_text_label".localized
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 32)
+        label.textColor = UIColor(named: "mainTextFontColor")
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -42,7 +44,7 @@ class ErrorView: UIView {
         let label = UILabel()
         label.text = "secondary_text_label".localized
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
-        label.textColor = UIColor.gray
+        label.textColor = UIColor(named: "secondaryTextFontColor")
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -79,11 +81,19 @@ class ErrorView: UIView {
         stackView.addArrangedSubview(secondaryTextLabel)
         
         addSubview(stackView)
+        addSubview(refreshPageButton)
         
         stackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(209)
             make.leading.equalToSuperview().inset(20)
             make.trailing.equalToSuperview().inset(20)
+        }
+        
+        refreshPageButton.snp.makeConstraints { make in
+            make.top.equalTo(stackView.snp.bottom).offset(100)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(50)
         }
     }
 }

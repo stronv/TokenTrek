@@ -18,7 +18,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
     private let searchTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "search_text_field_placeholder".localized
-        textField.backgroundColor = .white
+        textField.backgroundColor = UIColor(named: "placeholderColor")
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.height))
         textField.leftViewMode = .always
         textField.clipsToBounds = false
@@ -30,6 +30,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
     
     private let tableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = UIColor(named: "backgroundColor")
         return tableView
     }()
     
@@ -39,8 +40,6 @@ class SearchViewController: UIViewController, SearchViewProtocol {
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .white
         
         setup()
         navBarSetup()
@@ -52,6 +51,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
     
     // MARK: - Private methods
     private func setup() {
+        view.backgroundColor = UIColor(named: "backgroundColor")
         view.addSubview(searchTextField)
         searchTextField.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -73,7 +73,6 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         tableView.register(CurrencyTableViewCell.self, forCellReuseIdentifier: "CurrencyTableViewCell")
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.backgroundColor = .white
         tableView.separatorColor = UIColor.clear
     }
     
@@ -83,7 +82,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
             UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate),
             for: .normal
         )
-        button.tintColor = UIColor.gray
+        button.tintColor = UIColor(named: "mainTextFontColor")
         button.imageView?.contentMode = .scaleAspectFit
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
@@ -128,6 +127,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate, UITe
             fatalError("Couldn't register cell")
         }
         let moneta = output.searchedCoins[indexPath.row]
+        cell.backgroundColor = .clear
         cell.configure(coin: moneta)
         return cell
     }
