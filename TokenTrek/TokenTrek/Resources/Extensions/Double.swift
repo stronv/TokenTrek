@@ -18,8 +18,14 @@ extension Double {
     }
     
     func asCurrencyWith6Decimals() -> String {
-        let number = NSNumber(value: self)
-        return currencyFormatter6.string(from: number) ?? "$0.00"
+        let currencyFormatter6 = NumberFormatter()
+        currencyFormatter6.numberStyle = .currency
+        currencyFormatter6.currencyCode = "USD"
+        currencyFormatter6.maximumFractionDigits = 6
+        if let languageCode = Locale.current.languageCode, languageCode == "ru" || languageCode == "en" {
+            currencyFormatter6.currencySymbol = "$"
+        }
+        return currencyFormatter6.string(from: NSNumber(value: self)) ?? ""
     }
     
     func aNumberString() -> String {

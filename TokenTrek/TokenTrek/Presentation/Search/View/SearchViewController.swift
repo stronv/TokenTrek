@@ -17,7 +17,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
     // MARK: - UI
     private let searchTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Искать монеты"
+        textField.placeholder = "search_text_field_placeholder".localized
         textField.backgroundColor = .white
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.height))
         textField.leftViewMode = .always

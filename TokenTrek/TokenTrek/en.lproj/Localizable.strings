@@ -1,0 +1,35 @@
+/* 
+  Localizable.strings
+  TokenTrek
+
+  Created by Artyom Tabachenko on 06.06.2023.
+  
+*/
+
+"greeting_label" = "Welcome!";
+"description_label" = "TokenTrek is an application for tracking changes in cryptocurrency prices in real time.";
+"create_account_button" = "Create an account";
+"sign_in_button" = "Sign in";
+"to_main_screen_button" = "Main";
+
+"email_label" = "Email address";
+"password_label" = "Password";
+"email_text_field_placeholder" = "Enter your email address";
+"password_text_field_placeholder" = "Enter your password";
+"create_account_button" = "Sign up";
+"alredy_register_label" = "Already have an account?";
+
+"still_no_account_label" = "No account?";
+
+"sign_out_button" = "Sign out";
+
+"currency_list_button" = "Coins";
+"watch_list_button" = "Watch List";
+
+"error_text_label" = "Something went wrong...";
+"secondary_text_label" = "Try to reload the page or re-enter the application.";
+"refresh_page_button" = "Refresh";
+
+"add_to_watch_list_button" = "Add to the watch list";
+"remove_from_watch_list_button" = "Remove from the watch list";
+"search_text_field_placeholder" = "Find coins";

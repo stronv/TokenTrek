@@ -23,7 +23,7 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
     
     private let greetingLabel: UILabel = {
         let label = UILabel()
-        label.text = "Добро пожаловать!"
+        label.text = "greeting_label".localized
         label.font = UIFont(name: Fonts.ubuntuBold, size: 40)
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -32,7 +32,7 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "TokenTrek - приложение для отслеживания изменений цен на криптовалюты в режиме реального времени."
+        label.text = "description_label".localized
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 16)
         label.textColor = UIColor.gray
         label.numberOfLines = 0
@@ -42,7 +42,7 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
         
     private let createAccountButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Создать аккаунт", for: .normal)
+        button.setTitle("create_account_button".localized, for: .normal)
         button.layer.cornerRadius = 25
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor.blueButton
@@ -52,7 +52,7 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
     
     private let signInButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Войти", for: .normal)
+        button.setTitle("sign_in_button".localized, for: .normal)
         button.layer.cornerRadius = 25
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor.blackButton
@@ -62,7 +62,7 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
     
     private let toMainScreenButton: UIButton = {
         let button = UIButton()
-        button.setTitle("На главную", for: .normal)
+        button.setTitle("to_main_screen_button".localized, for: .normal)
         button.backgroundColor = .clear
         button.setTitleColor(UIColor.gray, for: .normal)
         button.layer.cornerRadius = 25

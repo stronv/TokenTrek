@@ -17,7 +17,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     // MARK: - UI
     private let emailLabel: UILabel = {
         let label = UILabel()
-        label.text = "Адрес электронной почты"
+        label.text = "email_label".localized
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         label.textAlignment = .left
         return label
@@ -25,7 +25,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     
     private let passwordLabel: UILabel = {
         let label = UILabel()
-        label.text = "Пароль"
+        label.text = "password_label".localized
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         label.textAlignment = .left
         return label
@@ -33,7 +33,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     
     private let emailTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Введите ваш адрес эл.почты"
+        textField.placeholder = "email_text_field_placeholder".localized
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 25
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.height))
@@ -47,7 +47,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     
     private let passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Введите ваш пароль"
+        textField.placeholder = "password_text_field_placeholder".localized
         textField.isSecureTextEntry = true
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 25
@@ -65,14 +65,14 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
         button.layer.cornerRadius = 25
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor.blueButton
-        button.setTitle("Создать аккаунт", for: .normal)
+        button.setTitle("create_account_button".localized, for: .normal)
         button.addTarget(self, action: #selector(registerPressed), for: .touchUpInside)
         return button
     }()
     
     private let alredyRegisterLabel: UILabel = {
         let label = UILabel()
-        label.text = "Уже есть аккаунт?"
+        label.text = "alredy_register_label".localized
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 18)
         label.textColor = UIColor.gray
         label.textAlignment = .center
@@ -81,7 +81,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     
     private let signInButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Войти", for: .normal)
+        button.setTitle("sign_in_button".localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(signInButtonPressed), for: .touchUpInside)
         return button
@@ -105,7 +105,7 @@ class RegistrationViewController: UIViewController, RegistrationViewProtocol {
     
     private let toMainScreenButton = {
         let button = UIButton()
-        button.setTitle("На главную", for: .normal)
+        button.setTitle("to_main_screen_button".localized, for: .normal)
         button.backgroundColor = .clear
         button.setTitleColor(UIColor.gray, for: .normal)
         button.layer.cornerRadius = 25

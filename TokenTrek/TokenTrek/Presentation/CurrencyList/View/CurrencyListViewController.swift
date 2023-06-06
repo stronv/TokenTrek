@@ -89,7 +89,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
     
     private let currencyListButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Coins", for: .normal)
+        button.setTitle("currency_list_button".localized, for: .normal)
         button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         button.backgroundColor = .clear
         button.setTitleColor(UIColor.black, for: .normal)
@@ -99,7 +99,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
     
     private let watchListButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Watch list", for: .normal)
+        button.setTitle("watch_list_button".localized, for: .normal)
         button.titleLabel?.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         button.backgroundColor = .clear
         button.setTitleColor(UIColor.black, for: .normal)

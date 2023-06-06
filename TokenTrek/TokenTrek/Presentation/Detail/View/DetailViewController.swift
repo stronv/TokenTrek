@@ -178,11 +178,11 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
     
     @objc func addToFavoritesAction() {
         if addToFavoritesButtonToggled == false {
-            addToWatchListButton.setTitle("Добавить в список наблюдения", for: .normal)
+            addToWatchListButton.setTitle("add_to_watch_list_button".localized, for: .normal)
             addToFavoritesButtonToggled = true
             output.watchListOperation(isFavorite: .removeCoinFromFavorite)
         } else {
-            addToWatchListButton.setTitle("Убрать из списка наблюдения", for: .normal)
+            addToWatchListButton.setTitle("remove_from_watch_list_button".localized, for: .normal)
             addToFavoritesButtonToggled = false
             output.watchListOperation(isFavorite: .addCoinToFavorite)
         }
@@ -261,10 +261,10 @@ extension DetailViewController {
     
     func setFavoriteButtonSelected(isSelected: Bool) {
         if isSelected == true {
-            addToWatchListButton.setTitle("Убрать из списка наблюдения", for: .normal)
+            addToWatchListButton.setTitle("remove_from_watch_list_button".localized, for: .normal)
             addToFavoritesButtonToggled = false
         } else {
-            addToWatchListButton.setTitle("Добавить в список наблюдения", for: .normal)
+            addToWatchListButton.setTitle("add_to_watch_list_button".localized, for: .normal)
             addToFavoritesButtonToggled = true
         }
     }

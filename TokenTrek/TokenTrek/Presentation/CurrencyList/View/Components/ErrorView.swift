@@ -29,9 +29,9 @@ class ErrorView: UIView {
         return imageView
     }()
 
-    let textLabel: UILabel = {
+    let errorTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "Что-то пошло не так..."
+        label.text = "error_text_label".localized
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 32)
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -40,7 +40,7 @@ class ErrorView: UIView {
 
     let secondaryTextLabel: UILabel = {
         let label = UILabel()
-        label.text = "Попробуйте перезагрузить страницу или перезайдите в приложение."
+        label.text = "secondary_text_label".localized
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         label.textColor = UIColor.gray
         label.numberOfLines = 0
@@ -53,7 +53,7 @@ class ErrorView: UIView {
         button.layer.cornerRadius = 25
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor.blueButton
-        button.setTitle("Перезагрузить", for: .normal)
+        button.setTitle("refresh_page_button".localized, for: .normal)
         button.addTarget(self, action: #selector(refreshPageButtonAction), for: .touchUpInside)
         return button
     }()
@@ -75,7 +75,7 @@ class ErrorView: UIView {
     // MARK: - Private metohds
     private func setup() {
         stackView.addArrangedSubview(errorImageView)
-        stackView.addArrangedSubview(textLabel)
+        stackView.addArrangedSubview(errorTextLabel)
         stackView.addArrangedSubview(secondaryTextLabel)
         
         addSubview(stackView)

@@ -18,7 +18,7 @@ class LoginViewController: UIViewController, LoginViewProtocol {
     // MARK: - UI
     private let emailLabel: UILabel = {
         let label = UILabel()
-        label.text = "Адрес электронной почты"
+        label.text = "email_label".localized
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         label.textAlignment = .left
         return label
@@ -26,7 +26,7 @@ class LoginViewController: UIViewController, LoginViewProtocol {
     
     private let passwordLabel: UILabel = {
         let label = UILabel()
-        label.text = "Пароль"
+        label.text = "password_label".localized
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 14)
         label.textAlignment = .left
         return label
@@ -34,7 +34,7 @@ class LoginViewController: UIViewController, LoginViewProtocol {
     
     private let emailTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Введите ваш адрес эл.почты"
+        textField.placeholder = "email_text_field_placeholder".localized
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 25
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: textField.frame.height))
@@ -48,7 +48,7 @@ class LoginViewController: UIViewController, LoginViewProtocol {
     
     private let passwordTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Введите ваш пароль"
+        textField.placeholder = "password_text_field_placeholder".localized
         textField.isSecureTextEntry = true
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 25
@@ -66,14 +66,14 @@ class LoginViewController: UIViewController, LoginViewProtocol {
         button.layer.cornerRadius = 25
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor.blueButton
-        button.setTitle("Войти", for: .normal)
+        button.setTitle("sign_in_button".localized, for: .normal)
         button.addTarget(self, action: #selector(signInButtonPressed), for: .touchUpInside)
         return button
     }()
     
     private let stillNoAccountLabel: UILabel = {
         let label = UILabel()
-        label.text = "Нет аккаунта?"
+        label.text = "still_no_account_label".localized 
         label.font = UIFont(name: Fonts.ubuntuRegular, size: 18)
         label.textColor = UIColor.gray
         label.textAlignment = .center
@@ -82,7 +82,7 @@ class LoginViewController: UIViewController, LoginViewProtocol {
     
     private let registrationButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Зарегистрироваться", for: .normal)
+        button.setTitle("create_account_button".localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(registrationButtonAction), for: .touchUpInside)
         return button
@@ -109,14 +109,14 @@ class LoginViewController: UIViewController, LoginViewProtocol {
         button.layer.cornerRadius = 25
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor.blueButton
-        button.setTitle("Выйти", for: .normal)
+        button.setTitle("sign_out_button".localized, for: .normal)
         button.addTarget(self, action: #selector(signOutButtonAction), for: .touchUpInside)
         return button
     }()
     
     private let toMainScreenButton = {
         let button = UIButton()
-        button.setTitle("На главную", for: .normal)
+        button.setTitle("to_main_screen_button".localized, for: .normal)
         button.backgroundColor = .clear
         button.setTitleColor(UIColor.gray, for: .normal)
         button.layer.cornerRadius = 25
@@ -263,13 +263,9 @@ extension LoginViewController {
     func updateSignUpState(_ state: SignUpState) {
         switch state {
         case .succes:
-            showAlert(
-                alertTitle: "Вы успешно зарегистрированы!",
-                alertMessage: "")
+            print("Succes")
         case .failure:
-            showAlert(
-                alertTitle: "Ошибка!",
-                alertMessage: "\(AuthError.unknownError)")
+            print("error")
         }
     }
     

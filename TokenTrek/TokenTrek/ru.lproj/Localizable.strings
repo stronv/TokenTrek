@@ -1,0 +1,35 @@
+/* 
+  Localizable.strings
+  TokenTrek
+
+  Created by Artyom Tabachenko on 06.06.2023.
+  
+*/
+
+"greeting_label" = "Добро пожаловать!";
+"description_label" = "Token Trek - это приложение для отслеживания изменений цен на криптовалюты в режиме реального времени.";
+"create_account_button" = "Зарегистрироваться";
+"sign_in_button" = "Войти";
+"to_main_screen_button" = "На главную";
+
+"email_label" = "Email";
+"password_label" = "Пароль";
+"email_text_field_placeholder" = "Введите адрес эл.почты";
+"password_text_field_placeholder" = "Введите пароль";
+"create_account_button" = "Зарегистрироваться";
+"alredy_register_label" = "Уже зарегистрированы?";
+
+"still_no_account_label" = "Нет аккаунта?";
+
+"sign_out_button" = "Выйти";
+
+"currency_list_button" = "Монеты";
+"watch_list_button" = "Список избранных";
+
+"error_text_label" = "Что-то пошло не так...";
+"secondary_text_label" = "Попробуйте перезагрузить страницу или повторно войти в приложение.";
+"refresh_page_button" = "Обновить";
+
+"add_to_watch_list_button" = "Добавить в список избранных";
+"remove_from_watch_list_button" = "Убрать из списка избранных";
+"search_text_field_placeholder" = "Искать монеты";
