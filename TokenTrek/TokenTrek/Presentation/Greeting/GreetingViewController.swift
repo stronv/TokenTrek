@@ -122,6 +122,22 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
         output?.toSignIn()
     }
     
+    private struct Constants {
+        static let leading: CGFloat = 20
+        static let trailing: CGFloat = 20
+        
+        static let buttonHeight: CGFloat = 50
+        
+        static let mainScreenButtonLeading: CGFloat = 80
+        static let mainScreenButtonTrailing: CGFloat = 80
+        
+        static let createAccountButtonTrailing: CGFloat = 110
+        
+        static let mainButtomsStackViewBottom: CGFloat = 45
+        
+        static let greetingStackViewTop: CGFloat = 209
+    }
+    
     // MARK: - Private Functions
     private func addSubviews() {
         greetingStackView.addArrangedSubview(logoImageView)
@@ -137,15 +153,15 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
     
     private func setConstraints() {
         greetingStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(209)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
+            make.top.equalToSuperview().inset(Constants.greetingStackViewTop)
+            make.leading.equalToSuperview().inset(Constants.leading)
+            make.trailing.equalToSuperview().inset(Constants.trailing)
         }
         
         mainButtonsStackView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(45)
+            make.leading.equalToSuperview().inset(Constants.leading)
+            make.trailing.equalToSuperview().inset(Constants.trailing)
+            make.bottom.equalToSuperview().inset(Constants.mainButtomsStackViewBottom)
         }
         
         secondaryStackView.snp.makeConstraints { make in
@@ -154,20 +170,20 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
         }
         
         createAccountButton.snp.makeConstraints { make in
-            make.height.equalTo(50)
+            make.height.equalTo(Constants.buttonHeight)
             make.leading.equalToSuperview()
-            make.trailing.equalTo(signInButton.snp.trailing).inset(110)
+            make.trailing.equalTo(signInButton.snp.trailing).inset(Constants.createAccountButtonTrailing)
         }
         
         signInButton.snp.makeConstraints { make in
-            make.height.equalTo(50)
+            make.height.equalTo(Constants.buttonHeight)
             make.trailing.equalToSuperview()
         }
         
         toMainScreenButton.snp.makeConstraints { make in
-            make.height.equalTo(50)
-            make.leading.equalToSuperview().inset(80)
-            make.trailing.equalToSuperview().inset(80)
+            make.height.equalTo(Constants.buttonHeight)
+            make.leading.equalToSuperview().inset(Constants.mainScreenButtonLeading)
+            make.trailing.equalToSuperview().inset(Constants.mainScreenButtonTrailing)
         }
     }
 }

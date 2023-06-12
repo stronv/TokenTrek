@@ -49,20 +49,26 @@ class SearchViewController: UIViewController, SearchViewProtocol {
         searchTextField.delegate = self
     }
     
+    private struct Constants {
+        static let leading: CGFloat = 20
+        static let trailing: CGFloat = 20
+        static let top: CGFloat = 20
+    }
+    
     // MARK: - Private methods
     private func setup() {
         view.backgroundColor = UIColor(named: "backgroundColor")
         view.addSubview(searchTextField)
         searchTextField.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
+            make.leading.equalToSuperview().inset(Constants.leading)
+            make.trailing.equalToSuperview().inset(Constants.trailing)
             make.height.equalTo(46)
         }
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(searchTextField.snp.bottom).offset(20)
+            make.top.equalTo(searchTextField.snp.bottom).offset(Constants.top)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()

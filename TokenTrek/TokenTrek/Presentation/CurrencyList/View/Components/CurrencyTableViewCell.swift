@@ -137,6 +137,16 @@ class CurrencyTableViewCell: UITableViewCell {
         contentView.addSubview(stackView)
     }
     
+    private struct Constants {
+        static let priceChangeLabelWidth: CGFloat = 73
+        static let priceChangeLabelbHeight: CGFloat = 32
+        
+        static let marketCapRankLabelWidth: CGFloat = 27
+        
+        static let imageWidth: CGFloat = 32
+        static let imageHeight: CGFloat = 32
+    }
+    
     private func setConstraints() {
         stackView.snp.makeConstraints { make in
             make.leading.equalTo(contentView.snp_leadingMargin)
@@ -145,15 +155,15 @@ class CurrencyTableViewCell: UITableViewCell {
             make.bottom.equalTo(contentView.snp_bottomMargin)
         }
         currencyLogoImage.snp.makeConstraints { make in
-            make.width.equalTo(32)
-            make.height.equalTo(32)
+            make.width.equalTo(Constants.imageWidth)
+            make.height.equalTo(Constants.imageHeight)
         }
         priceChangeLabel.snp.makeConstraints { make in
-            make.width.equalTo(73)
-            make.height.equalTo(32)
+            make.width.equalTo(Constants.priceChangeLabelWidth)
+            make.height.equalTo(Constants.priceChangeLabelbHeight)
         }
         marketCapRankLabel.snp.makeConstraints { make in
-            make.width.equalTo(27)
+            make.width.equalTo(Constants.marketCapRankLabelWidth)
         }
     }
 }

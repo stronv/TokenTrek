@@ -157,57 +157,81 @@ class LoginViewController: UIViewController, LoginViewProtocol {
         view.addSubview(toMainScreenButton)
     }
     
+    private struct Constants {
+        static let LabelLeading: CGFloat = 38
+        static let Labeltrailing: CGFloat = 38
+        
+        static let emailLabelTop: CGFloat = 100
+        static let passwordLabelTop: CGFloat = 30
+        
+        static let passwordTextFieldTop: CGFloat = 10
+        static let emailTextFieldTop: CGFloat = 25
+        
+        static let textFieldLeading: CGFloat = 20
+        static let textFieldTrailing: CGFloat = 20
+        static let textFieldHeight: CGFloat = 48
+        
+        static let stackViewLeading: CGFloat = 20
+        static let stackViewTrailing: CGFloat = 20
+        static let stackViewBottom: CGFloat = 228
+        
+        static let buttonLeading: CGFloat = 20
+        static let buttonTrailing: CGFloat = 20
+        static let buttonHeight: CGFloat = 50
+        static let buttonTop: CGFloat = 20
+    }
+    
     private func setConstraints() {
         emailLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(100)
-            make.leading.equalToSuperview().inset(38)
-            make.trailing.equalToSuperview().inset(38)
+            make.top.equalToSuperview().inset(Constants.emailLabelTop)
+            make.leading.equalToSuperview().inset(Constants.LabelLeading)
+            make.trailing.equalToSuperview().inset(Constants.Labeltrailing)
         }
         
         emailTextField.snp.makeConstraints { make in
-            make.top.equalTo(emailLabel.snp.top).offset(25)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(48)
+            make.top.equalTo(emailLabel.snp.top).offset(Constants.emailTextFieldTop)
+            make.leading.equalToSuperview().inset(Constants.textFieldLeading)
+            make.trailing.equalToSuperview().inset(Constants.textFieldTrailing)
+            make.height.equalTo(Constants.textFieldHeight)
         }
         
         passwordLabel.snp.makeConstraints { make in
-            make.top.equalTo(emailTextField.snp.bottom).offset(30)
-            make.leading.equalToSuperview().inset(38)
-            make.trailing.equalToSuperview().inset(38)
+            make.top.equalTo(emailTextField.snp.bottom).offset(Constants.passwordLabelTop)
+            make.leading.equalToSuperview().inset(Constants.LabelLeading)
+            make.trailing.equalToSuperview().inset(Constants.Labeltrailing)
         }
         
         passwordTextField.snp.makeConstraints { make in
-            make.top.equalTo(passwordLabel.snp.bottom).offset(10)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(48)
+            make.top.equalTo(passwordLabel.snp.bottom).offset(Constants.passwordTextFieldTop)
+            make.leading.equalToSuperview().inset(Constants.textFieldLeading)
+            make.trailing.equalToSuperview().inset(Constants.textFieldTrailing)
+            make.height.equalTo(Constants.textFieldHeight)
         }
         
         signInButton.snp.makeConstraints { make in
-            make.height.equalTo(50)
+            make.height.equalTo(Constants.buttonHeight)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
         
         bottomStackView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(228)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(Constants.stackViewBottom)
+            make.leading.equalToSuperview().inset(Constants.stackViewLeading)
+            make.trailing.equalToSuperview().inset(Constants.stackViewTrailing)
         }
         
         toMainScreenButton.snp.makeConstraints { make in
-            make.top.equalTo(bottomStackView.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(50)
+            make.top.equalTo(bottomStackView.snp.bottom).offset(Constants.buttonTop)
+            make.leading.equalToSuperview().inset(Constants.buttonLeading)
+            make.trailing.equalToSuperview().inset(Constants.buttonTrailing)
+            make.height.equalTo(Constants.buttonHeight)
         }
         
         signOutButton.snp.makeConstraints { make in
-            make.height.equalTo(50)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.top.equalTo(toMainScreenButton.snp.bottom).offset(10)
+            make.height.equalTo(Constants.buttonHeight)
+            make.leading.equalToSuperview().inset(Constants.buttonLeading)
+            make.trailing.equalToSuperview().inset(Constants.buttonTrailing)
+            make.top.equalTo(toMainScreenButton.snp.bottom).offset(Constants.buttonTop)
         }
     }
     

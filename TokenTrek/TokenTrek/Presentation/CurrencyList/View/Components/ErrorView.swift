@@ -73,6 +73,17 @@ class ErrorView: UIView {
         super.init(coder: coder)
         setup()
     }
+    
+    private struct Constants {
+        static let leading: CGFloat = 20
+        static let trailing: CGFloat = 20
+        
+        static let stackViewTop: CGFloat = 209
+        
+        static let refreshPageButtonTop: CGFloat = 209
+        static let refreshPageButtonHeight: CGFloat = 50
+        
+    }
         
     // MARK: - Private metohds
     private func setup() {
@@ -84,16 +95,16 @@ class ErrorView: UIView {
         addSubview(refreshPageButton)
         
         stackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(209)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
+            make.top.equalToSuperview().inset(Constants.stackViewTop)
+            make.leading.equalToSuperview().inset(Constants.leading)
+            make.trailing.equalToSuperview().inset(Constants.trailing)
         }
         
         refreshPageButton.snp.makeConstraints { make in
-            make.top.equalTo(stackView.snp.bottom).offset(100)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(50)
+            make.top.equalTo(stackView.snp.bottom).offset(Constants.refreshPageButtonTop)
+            make.leading.equalToSuperview().inset(Constants.leading)
+            make.trailing.equalToSuperview().inset(Constants.trailing)
+            make.height.equalTo(Constants.refreshPageButtonHeight)
         }
     }
 }

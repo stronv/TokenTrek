@@ -252,7 +252,7 @@ extension DetailViewController {
     func updateViewState(state: AuthStatus) {
         switch state {
         case .isAuthorized:
-            addToWatchListButton.isHidden = false
+            addToWatchListButton.isHidden = false 
         case .isNonauthorized:
             addToWatchListButton.isHidden = true
         }

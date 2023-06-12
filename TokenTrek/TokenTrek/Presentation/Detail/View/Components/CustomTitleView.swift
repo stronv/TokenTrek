@@ -67,6 +67,14 @@ class CustomTitleView: UIView {
         setup()
     }
     
+    private struct Constants {
+        static let labelWidth: CGFloat = 30
+        static let labelbHeight: CGFloat = 20
+        
+        static let imageWidth: CGFloat = 32
+        static let imageHeight: CGFloat = 32
+    }
+    
     // MARK: - Private metohds
     private func setup() {
         titleStackView.addArrangedSubview(nameLabel)
@@ -77,8 +85,8 @@ class CustomTitleView: UIView {
         addSubview(mainStackView)
         
         marketCapRankLabel.snp.makeConstraints { make in
-            make.width.equalTo(30)
-            make.height.equalTo(20)
+            make.width.equalTo(Constants.labelWidth)
+            make.height.equalTo(Constants.labelbHeight)
         }
         
         mainStackView.snp.makeConstraints { make in
@@ -87,8 +95,8 @@ class CustomTitleView: UIView {
         }
         
         currencyLogoImage.snp.makeConstraints { make in
-            make.height.equalTo(32)
-            make.width.equalTo(32)
+            make.height.equalTo(Constants.imageHeight)
+            make.width.equalTo(Constants.imageWidth)
         }
     }
 }

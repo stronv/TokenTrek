@@ -138,33 +138,41 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
         view.addSubview(watchListButton)
     }
     
+    private struct Constants {
+        static let leading: CGFloat = 30
+        static let trailing: CGFloat = 20
+        static let top: CGFloat = 12
+        
+        static let currencyListButtonLeading: CGFloat = 30
+    }
+    
     private func setConstraints() {
         view.backgroundColor = UIColor(named: "backgroundColor")
         
         filterButtonsStackView.snp.makeConstraints { make in
             make.top.equalTo(currencyListButton.snp.bottom)
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
+            make.leading.equalToSuperview().inset(Constants.leading)
+            make.trailing.equalToSuperview().inset(Constants.trailing)
         }
         
         currencyListButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalToSuperview().inset(30)
+            make.leading.equalToSuperview().inset(Constants.currencyListButtonLeading)
         }
         watchListButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.trailing.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(Constants.trailing)
         }
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(marketCapRankButton.snp_bottomMargin).offset(12)
+            make.top.equalTo(marketCapRankButton.snp_bottomMargin).offset(Constants.top)
             make.bottom.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
         }
         
         errorView.snp.makeConstraints { make in
-            make.top.equalTo(marketCapRankButton.snp_bottomMargin).offset(12)
+            make.top.equalTo(marketCapRankButton.snp_bottomMargin).offset(Constants.top)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
