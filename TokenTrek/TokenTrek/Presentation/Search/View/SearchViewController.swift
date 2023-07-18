@@ -35,7 +35,7 @@ class SearchViewController: UIViewController, SearchViewProtocol {
     }()
     
     // MARK: - MVP properties
-    var output: SearchViewPresenterProtocol!
+    var output: SearchViewOutput!
     
     // MARK: - Life cycle
     override func viewDidLoad() {

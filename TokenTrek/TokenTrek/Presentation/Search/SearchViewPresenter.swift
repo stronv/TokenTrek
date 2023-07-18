@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SearchViewPresenterProtocol {
+protocol SearchViewOutput {
     var coins: [Coin] { get }
     var searchedCoins: [Coin] { get set }
     func showCoinDetail(indexPath: IndexPath)
@@ -15,7 +15,7 @@ protocol SearchViewPresenterProtocol {
     func viewDidLoadEvent()
 }
 
-final class SearchViewPresenter: SearchViewPresenterProtocol {
+final class SearchViewPresenter: SearchViewOutput {
     
     private let moduleOutput: SearchViewCoordinatorProtocol
     private weak var view: SearchViewProtocol?

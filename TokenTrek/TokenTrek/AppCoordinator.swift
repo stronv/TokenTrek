@@ -11,36 +11,56 @@ class AppCoordinator {
     
     var window = UIWindow()
     
+    private lazy var greetingCoordinator: GreetingCoordinator = {
+        let coordinator = GreetingCoordinator()
+        coordinator.appCoordinator = self
+        return coordinator
+    }()
+    
+    private lazy var mainCoordinator: CurrencyListCoordinator = {
+        let coordinator = CurrencyListCoordinator()
+        coordinator.appCoordinator = self
+        return coordinator
+    }()
+    
+    private lazy var registrationCoordinator: RegistrationCoordinator = {
+        let coordinator = RegistrationCoordinator()
+        coordinator.appCoordinator = self
+        return coordinator
+    }()
+    
+    private lazy var loginCoordinator: LoginCoordinator = {
+        let coordinator = LoginCoordinator()
+        coordinator.appCoordinator = self
+        return coordinator
+    }()
+    
+    private lazy var searchCoordinator: SearchViewCoordinator = {
+        let coordinator = SearchViewCoordinator()
+        coordinator.appCoordinator = self
+        return coordinator
+    }()
+    
     func goToGreetingPage() {
         window.makeKeyAndVisible()
         window.backgroundColor = .systemBackground
-        let coordinator = GreetingCoordinator()
-        coordinator.appCoordinator = self
-        setRootViewController(coordinator.start(), duration: 0.3)
+        setRootViewController(greetingCoordinator.start(), duration: 0.3)
     }
     
     func goToMainPage() {
-        let coordinator = CurrencyListCoordinator()
-        coordinator.appCoordinator = self
-        setRootViewController(coordinator.start(), duration: 0.3)
+        setRootViewController(mainCoordinator.start(), duration: 0.3)
     }
     
     func goToRegistrationPage() {
-        let coordinator = RegistrationCoordinator()
-        coordinator.appCoordinator = self
-        setRootViewController(coordinator.start(), duration: 0.3)
+        setRootViewController(registrationCoordinator.start(), duration: 0.3)
     }
     
     func goToSearchPage() {
-        let coordinator = SearchViewCoordinator()
-        coordinator.appCoordinator = self
-        setRootViewController(coordinator.start(), duration: 0.3)
+        setRootViewController(searchCoordinator.start(), duration: 0.3)
     }
     
     func goToLoginPage() {
-        let coordinator = LoginCoordinator()
-        coordinator.appCoordinator = self
-        setRootViewController(coordinator.start(), duration: 0.3)
+        setRootViewController(loginCoordinator.start(), duration: 0.3)
     }
     
     func setRootViewController(_ vc: UIViewController, duration: TimeInterval) {

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class CurrencyTableViewCell: UITableViewCell {
-    
+
     static let identifier = "CurrencyTableViewCell"
     // MARK: - UI
     let marketCapRankLabel: UILabel = {

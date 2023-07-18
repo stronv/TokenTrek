@@ -69,7 +69,7 @@ class DetailViewController: UIViewController, DetailViewControllerProtocol {
         return stackview
     }()
     
-    var output: DetailViewPresenterProtocol!
+    var output: DetailViewOutput!
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CurrencyListPresenterProtocol {
+protocol CurrencyListViewOutput {
     var coins: [Coin] { get }
     func showCoinDetail(indexPath: IndexPath)
     func showSearchView()
@@ -30,7 +30,7 @@ enum CurrencyListType {
     case currencyList
 }
 
-final class CurrencyListPresenter: CurrencyListPresenterProtocol {
+final class CurrencyListPresenter: CurrencyListViewOutput {
     
     private let moduleOutput: CurrencyListCoordinatorProtocol
     private weak var view: CurrencyListViewProtocol?

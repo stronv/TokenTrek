@@ -17,12 +17,12 @@ enum CoinIsFavorite {
     case removeCoinFromFavorite
 }
 
-protocol DetailViewPresenterProtocol {
+protocol DetailViewOutput {
     func viewDidLoadEvent()
     func watchListOperation(isFavorite: CoinIsFavorite)
 }
 
-final class DetailViewPresenter: DetailViewPresenterProtocol {
+final class DetailViewPresenter: DetailViewOutput {
     
     private weak var view: DetailViewControllerProtocol?
     var coin: Coin
@@ -86,6 +86,7 @@ extension DetailViewPresenter {
     func watchListOperation(isFavorite: CoinIsFavorite) {
         switch isFavorite {
         case .removeCoinFromFavorite:
+            removeCoinFromFavorite()
             removeCoinFromFavorite()
         case .addCoinToFavorite:
             addCoinToFavorite()

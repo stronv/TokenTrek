@@ -109,7 +109,7 @@ class CurrencyListViewController: UIViewController, CurrencyListViewProtocol {
     }()
     
     // MARK: - MVP Properties
-    var output: CurrencyListPresenterProtocol!
+    var output: CurrencyListViewOutput!
 
     // MARK: - Lifecycle
     override func viewDidLoad() {

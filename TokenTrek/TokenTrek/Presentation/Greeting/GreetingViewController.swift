@@ -99,7 +99,7 @@ class GreetingViewController: UIViewController, GreetingViewProtocol {
     }()
     
     // MARK: - MVP Properties
-    var output: GreetingPresenter?
+    var output: GreetingViewOutput?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

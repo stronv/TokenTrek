@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         let coordinator = AppCoordinator()
         coordinator.window = window
-        
+    
         if UserDefaults.standard.value(forKey: "uid") == nil {
             coordinator.goToGreetingPage()
         } else {

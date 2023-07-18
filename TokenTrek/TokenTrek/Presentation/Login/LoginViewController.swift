@@ -130,7 +130,7 @@ class LoginViewController: UIViewController, LoginViewProtocol {
     }()
     
     // MARK: - MVP Properties
-    var output: LoginPresenter!
+    var output: LoginViewOutput!
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

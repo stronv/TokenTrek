@@ -8,7 +8,5 @@ target 'TokenTrek' do
   pod 'Moya'
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
-  pod 'Firebase/Core'
-  pod 'FirebaseDatabase'
   pod 'SwiftLint'
 end

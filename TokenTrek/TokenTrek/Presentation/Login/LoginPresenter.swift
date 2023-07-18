@@ -8,15 +8,17 @@
 import Foundation
 import Firebase
 
-protocol LoginPresenterProtocol {
+protocol LoginViewOutput {
     func signIn(email: String, password: String, completion: @escaping(SignInResult) -> Void)
     func showGreetingPage()
     func showRegistration()
     func showMainPage()
+    func viewDidLoadEvent()
+    func showCurrencyList()
 
 }
 
-final class LoginPresenter: LoginPresenterProtocol {
+final class LoginPresenter: LoginViewOutput {
     private let moduleOutput: LoginCoordinatorProtocol
     private weak var view: LoginViewProtocol?
     
